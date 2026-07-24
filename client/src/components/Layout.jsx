@@ -1,5 +1,7 @@
-import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Icon from "./Icon";
+import { useAuth } from "../AuthContext";
 
 const NAV_ITEMS = [
   { label: "Home", to: "/", icon: "grid_view" },
@@ -7,8 +9,25 @@ const NAV_ITEMS = [
   { label: "Workshop", to: "/workshop", icon: "workspaces" },
 ];
 
+function initials(user) {
+  const source = user?.displayName || user?.email || "";
+  const parts = source.split(/[\s@.]+/).filter(Boolean);
+  if (parts.length === 0) return "?";
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[1][0]).toUpperCase();
+}
+
 export default function Layout({ children }) {
   const location = useLocation();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  async function handleLogout() {
+    setMenuOpen(false);
+    await logout();
+    navigate("/signin", { replace: true });
+  }
 
   return (
     <div className="min-h-screen bg-background text-on-surface flex flex-col">
@@ -46,8 +65,35 @@ export default function Layout({ children }) {
         </div>
         <div className="flex items-center gap-4">
           <Icon name="notifications" className="text-on-surface-variant" />
-          <div className="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center text-xs font-semibold">
-            AR
+          <div className="relative">
+            <button
+              onClick={() => setMenuOpen((v) => !v)}
+              className="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center text-xs font-semibold overflow-hidden"
+              title={user?.displayName || user?.email || "Account"}
+            >
+              {user?.photoURL ? (
+                <img src={user.photoURL} alt="" className="w-full h-full object-cover" />
+              ) : (
+                initials(user)
+              )}
+            </button>
+            {menuOpen && (
+              <div className="absolute right-0 mt-2 w-56 bg-surface-container-lowest border border-outline-variant rounded-lg shadow-lg py-2 z-30">
+                <div className="px-4 py-2 border-b border-outline-variant">
+                  <p className="text-sm font-semibold text-on-surface truncate">
+                    {user?.displayName || "Account"}
+                  </p>
+                  <p className="text-xs text-on-surface-variant truncate">{user?.email}</p>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="w-full text-left px-4 py-2 text-sm text-on-surface hover:bg-surface-container flex items-center gap-2"
+                >
+                  <Icon name="logout" className="text-[18px]" />
+                  Sign out
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </header>

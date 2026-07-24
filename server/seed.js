@@ -21,6 +21,8 @@ export const frameworks = [
     tag: "Strategy",
     description:
       "Breaking down complex problems into basic elements and then reassembling them from the ground up.",
+    workshop: true,
+    tool: "first_principles",
   },
   {
     id: 3,
@@ -135,6 +137,45 @@ export const frameworks = [
       "Structure a tight pitch narrative — Situation, Complication, Question, Answer — with a live preview as you write.",
     workshop: true,
     tool: "scqa",
+  },
+  {
+    id: 14,
+    name: "Logic Tree Workshop",
+    category: "Problem Solving",
+    complexity: "Advanced",
+    readTime: "14 min read",
+    tag: "Diagnostics",
+    description:
+      "Diagnose symptoms or stress-test decisions on a branching canvas with live path-coverage and logic-fallacy scanning.",
+    workshop: true,
+    isNew: true,
+    tool: "logic_tree",
+  },
+  {
+    id: 15,
+    name: "Systems Thinking Workspace",
+    category: "Strategy",
+    complexity: "Advanced",
+    readTime: "18 min read",
+    tag: "Causal Loop Canvas",
+    description:
+      "Map stocks, flows, and reinforcing/balancing feedback loops, then let the Delay/Feedback Analyzer surface leverage points.",
+    workshop: true,
+    isNew: true,
+    tool: "systems_thinking",
+  },
+  {
+    id: 16,
+    name: "Hypothesis-Driven Thinking",
+    category: "Strategy",
+    complexity: "Intermediate",
+    readTime: "12 min read",
+    tag: "Validation",
+    description:
+      "Turn a business assumption into a testable hypothesis, design the test, and track confidence as evidence comes in.",
+    workshop: true,
+    isNew: true,
+    tool: "hypothesis",
   },
 ];
 

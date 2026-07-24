@@ -10,6 +10,10 @@ const DOCUMENT_TYPES = [
   { type: "mece", route: "mece", label: "MECE Workspace" },
   { type: "pyramid", route: "pyramid", label: "Pyramid" },
   { type: "scqa", route: "scqa", label: "SCQA" },
+  { type: "logic_tree", route: "logic-tree", label: "Logic Tree" },
+  { type: "systems_thinking", route: "systems-thinking", label: "Systems Thinking" },
+  { type: "first_principles", route: "first-principles", label: "First Principles" },
+  { type: "hypothesis", route: "hypothesis", label: "Hypothesis Workspace" },
 ];
 
 export default function Home() {

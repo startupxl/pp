@@ -7,6 +7,7 @@ import { fileURLToPath } from "url";
 import * as store from "./store.js";
 import { goals as seedGoals } from "./seed.js";
 import { generateSwot } from "./analysisEngine.js";
+import { requireAuth } from "./auth.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CLIENT_DIST = path.join(__dirname, "..", "client", "dist");
@@ -46,27 +47,37 @@ app.get("/api/goals", (req, res) => {
 });
 
 // ---------- Sessions (SWOT Workshop instances) ----------
+// All /api/sessions* and /api/documents* routes require a valid Firebase ID
+// token; req.user.uid is threaded through as the userId on every store call.
 app.get(
   "/api/sessions",
+  requireAuth(),
   asyncRoute(async (req, res) => {
-    const sessions = await store.listSessions();
+    const sessions = await store.listSessions(req.user.uid);
     res.json({ sessions });
   })
 );
 
 app.post(
   "/api/sessions",
+  requireAuth(),
   asyncRoute(async (req, res) => {
     const { title, frameworkId, contextText } = req.body;
-    const session = await store.createSession({ title, frameworkId, contextText });
+    const session = await store.createSession({
+      userId: req.user.uid,
+      title,
+      frameworkId,
+      contextText,
+    });
     res.status(201).json(session);
   })
 );
 
 app.get(
   "/api/sessions/:id",
+  requireAuth(),
   asyncRoute(async (req, res) => {
-    const result = await store.getSessionWithAnalysis(req.params.id);
+    const result = await store.getSessionWithAnalysis(req.params.id, req.user.uid);
     if (!result) return res.status(404).json({ error: "Not found" });
     res.json(result);
   })
@@ -74,8 +85,9 @@ app.get(
 
 app.patch(
   "/api/sessions/:id",
+  requireAuth(),
   asyncRoute(async (req, res) => {
-    const session = await store.updateSession(req.params.id, req.body);
+    const session = await store.updateSession(req.params.id, req.user.uid, req.body);
     if (!session) return res.status(404).json({ error: "Not found" });
     res.json(session);
   })
@@ -83,8 +95,9 @@ app.patch(
 
 app.delete(
   "/api/sessions/:id",
+  requireAuth(),
   asyncRoute(async (req, res) => {
-    await store.deleteSession(req.params.id);
+    await store.deleteSession(req.params.id, req.user.uid);
     res.status(204).end();
   })
 );
@@ -92,12 +105,13 @@ app.delete(
 // ---------- Analysis generation ----------
 app.post(
   "/api/sessions/:id/generate",
+  requireAuth(),
   asyncRoute(async (req, res) => {
-    const existing = await store.getSession(req.params.id);
+    const existing = await store.getSession(req.params.id, req.user.uid);
     if (!existing) return res.status(404).json({ error: "Not found" });
 
     const contextText = req.body.contextText ?? existing.contextText;
-    const session = await store.updateSession(req.params.id, {
+    const session = await store.updateSession(req.params.id, req.user.uid, {
       contextText,
       stage: "analysis",
     });
@@ -111,8 +125,9 @@ app.post(
 
 app.post(
   "/api/sessions/:id/commit",
+  requireAuth(),
   asyncRoute(async (req, res) => {
-    const session = await store.updateSession(req.params.id, {
+    const session = await store.updateSession(req.params.id, req.user.uid, {
       stage: "strategy",
       committed: true,
     });
@@ -125,31 +140,34 @@ app.get("/api/health", async (req, res) => {
   res.json({ ok: true, dataStore: store.usingMysql ? "mysql" : "json-file" });
 });
 
-// ---------- Generic tool documents (Issue Tree, MECE, Pyramid, SCQA) ----------
+// ---------- Generic tool documents (Issue Tree, MECE, Pyramid, SCQA, etc.) ----------
 app.get(
   "/api/documents",
+  requireAuth(),
   asyncRoute(async (req, res) => {
     const { type } = req.query;
     if (!type) return res.status(400).json({ error: "type query param is required" });
-    const documents = await store.listDocuments(type);
+    const documents = await store.listDocuments(type, req.user.uid);
     res.json({ documents });
   })
 );
 
 app.post(
   "/api/documents",
+  requireAuth(),
   asyncRoute(async (req, res) => {
     const { type, title, data } = req.body;
     if (!type) return res.status(400).json({ error: "type is required" });
-    const doc = await store.createDocument({ type, title, data });
+    const doc = await store.createDocument({ userId: req.user.uid, type, title, data });
     res.status(201).json(doc);
   })
 );
 
 app.get(
   "/api/documents/:id",
+  requireAuth(),
   asyncRoute(async (req, res) => {
-    const doc = await store.getDocument(req.params.id);
+    const doc = await store.getDocument(req.params.id, req.user.uid);
     if (!doc) return res.status(404).json({ error: "Not found" });
     res.json(doc);
   })
@@ -157,8 +175,9 @@ app.get(
 
 app.patch(
   "/api/documents/:id",
+  requireAuth(),
   asyncRoute(async (req, res) => {
-    const doc = await store.updateDocument(req.params.id, req.body);
+    const doc = await store.updateDocument(req.params.id, req.user.uid, req.body);
     if (!doc) return res.status(404).json({ error: "Not found" });
     res.json(doc);
   })
@@ -166,8 +185,9 @@ app.patch(
 
 app.delete(
   "/api/documents/:id",
+  requireAuth(),
   asyncRoute(async (req, res) => {
-    await store.deleteDocument(req.params.id);
+    await store.deleteDocument(req.params.id, req.user.uid);
     res.status(204).end();
   })
 );

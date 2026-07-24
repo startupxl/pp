@@ -1,5 +1,7 @@
 // JSON-file-backed store — used for local development when no DB_HOST env var
 // is set. NOT recommended for production on Hostinger: see DEPLOY.md for why.
+// User accounts/passwords live in Firebase Auth, not here — `userId` below
+// is always the Firebase UID string, attached by the requireAuth middleware.
 import { readDB, writeDB, nextId } from "./db.js";
 import { frameworks as seedFrameworks } from "./seed.js";
 
@@ -18,6 +20,7 @@ export async function init() {
   writeDB(db);
 }
 
+// ---------- Frameworks (global catalog, not user-scoped) ----------
 export async function getFrameworks({ category, complexity, q } = {}) {
   const db = readDB();
   let results = db.frameworks;
@@ -42,17 +45,21 @@ export async function getFramework(id) {
   return db.frameworks.find((f) => f.id === Number(id)) || null;
 }
 
-export async function listSessions() {
+// ---------- SWOT sessions (user-scoped by Firebase UID) ----------
+export async function listSessions(userId) {
   const db = readDB();
-  return [...db.sessions].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+  return db.sessions
+    .filter((s) => s.userId === userId)
+    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
 }
 
-export async function createSession({ title, frameworkId, contextText }) {
+export async function createSession({ userId, title, frameworkId, contextText }) {
   const db = readDB();
   const id = nextId(db.sessions);
   const now = new Date().toISOString();
   const session = {
     id,
+    userId,
     title: title || "Untitled Session",
     frameworkId: frameworkId || 1,
     contextText: contextText || "",
@@ -66,32 +73,32 @@ export async function createSession({ title, frameworkId, contextText }) {
   return session;
 }
 
-export async function getSession(id) {
+export async function getSession(id, userId) {
   const db = readDB();
-  return db.sessions.find((s) => s.id === Number(id)) || null;
+  return db.sessions.find((s) => s.id === Number(id) && s.userId === userId) || null;
 }
 
-export async function getSessionWithAnalysis(id) {
+export async function getSessionWithAnalysis(id, userId) {
   const db = readDB();
-  const session = db.sessions.find((s) => s.id === Number(id));
+  const session = db.sessions.find((s) => s.id === Number(id) && s.userId === userId);
   if (!session) return null;
   const analysis = db.analyses.find((a) => a.sessionId === session.id);
   return { ...session, analysis: analysis || null };
 }
 
-export async function updateSession(id, patch) {
+export async function updateSession(id, userId, patch) {
   const db = readDB();
-  const session = db.sessions.find((s) => s.id === Number(id));
+  const session = db.sessions.find((s) => s.id === Number(id) && s.userId === userId);
   if (!session) return null;
   Object.assign(session, patch, { updatedAt: new Date().toISOString() });
   writeDB(db);
   return session;
 }
 
-export async function deleteSession(id) {
+export async function deleteSession(id, userId) {
   const db = readDB();
   const before = db.sessions.length;
-  db.sessions = db.sessions.filter((s) => s.id !== Number(id));
+  db.sessions = db.sessions.filter((s) => !(s.id === Number(id) && s.userId === userId));
   db.analyses = db.analyses.filter((a) => a.sessionId !== Number(id));
   writeDB(db);
   return db.sessions.length < before;
@@ -109,19 +116,20 @@ export async function saveAnalysis(sessionId, analysisResult) {
   return analysis;
 }
 
-// ---------- Generic tool documents (Issue Tree, MECE, Pyramid, SCQA) ----------
-export async function listDocuments(type) {
+// ---------- Generic tool documents (user-scoped by Firebase UID) ----------
+export async function listDocuments(type, userId) {
   const db = readDB();
   return db.documents
-    .filter((d) => d.type === type)
+    .filter((d) => d.type === type && d.userId === userId)
     .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
 }
 
-export async function createDocument({ type, title, data }) {
+export async function createDocument({ userId, type, title, data }) {
   const db = readDB();
   const now = new Date().toISOString();
   const doc = {
     id: nextId(db.documents),
+    userId,
     type,
     title: title || "Untitled",
     data: data ?? {},
@@ -133,24 +141,24 @@ export async function createDocument({ type, title, data }) {
   return doc;
 }
 
-export async function getDocument(id) {
+export async function getDocument(id, userId) {
   const db = readDB();
-  return db.documents.find((d) => d.id === Number(id)) || null;
+  return db.documents.find((d) => d.id === Number(id) && d.userId === userId) || null;
 }
 
-export async function updateDocument(id, patch) {
+export async function updateDocument(id, userId, patch) {
   const db = readDB();
-  const doc = db.documents.find((d) => d.id === Number(id));
+  const doc = db.documents.find((d) => d.id === Number(id) && d.userId === userId);
   if (!doc) return null;
   Object.assign(doc, patch, { updatedAt: new Date().toISOString() });
   writeDB(db);
   return doc;
 }
 
-export async function deleteDocument(id) {
+export async function deleteDocument(id, userId) {
   const db = readDB();
   const before = db.documents.length;
-  db.documents = db.documents.filter((d) => d.id !== Number(id));
+  db.documents = db.documents.filter((d) => !(d.id === Number(id) && d.userId === userId));
   writeDB(db);
   return db.documents.length < before;
 }

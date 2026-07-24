@@ -7,20 +7,124 @@ import IssueTree from "./pages/IssueTree";
 import Mece from "./pages/Mece";
 import Pyramid from "./pages/Pyramid";
 import Scqa from "./pages/Scqa";
+import LogicTree from "./pages/LogicTree";
+import SystemsThinking from "./pages/SystemsThinking";
+import FirstPrinciples from "./pages/FirstPrinciples";
+import Hypothesis from "./pages/Hypothesis";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/library" element={<Library />} />
-        <Route path="/workshop" element={<Home />} />
-        <Route path="/workshop/:id" element={<Workshop />} />
-        <Route path="/dashboard/:id" element={<Dashboard />} />
-        <Route path="/issue-tree/:id" element={<IssueTree />} />
-        <Route path="/mece/:id" element={<Mece />} />
-        <Route path="/pyramid/:id" element={<Pyramid />} />
-        <Route path="/scqa/:id" element={<Scqa />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/library"
+          element={
+            <ProtectedRoute>
+              <Library />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/workshop"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/workshop/:id"
+          element={
+            <ProtectedRoute>
+              <Workshop />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/:id"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/issue-tree/:id"
+          element={
+            <ProtectedRoute>
+              <IssueTree />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/mece/:id"
+          element={
+            <ProtectedRoute>
+              <Mece />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/pyramid/:id"
+          element={
+            <ProtectedRoute>
+              <Pyramid />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/scqa/:id"
+          element={
+            <ProtectedRoute>
+              <Scqa />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/logic-tree/:id"
+          element={
+            <ProtectedRoute>
+              <LogicTree />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/systems-thinking/:id"
+          element={
+            <ProtectedRoute>
+              <SystemsThinking />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/first-principles/:id"
+          element={
+            <ProtectedRoute>
+              <FirstPrinciples />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/hypothesis/:id"
+          element={
+            <ProtectedRoute>
+              <Hypothesis />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

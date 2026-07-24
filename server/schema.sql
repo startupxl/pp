@@ -2,6 +2,10 @@
 -- Safe to run multiple times (uses CREATE TABLE IF NOT EXISTS).
 -- Import this via phpMyAdmin in hPanel, or it runs automatically on server
 -- startup when DB_HOST/DB_USER/DB_PASSWORD/DB_NAME env vars are set.
+--
+-- User accounts and passwords live entirely in Firebase Authentication —
+-- there's no `users` table here. Rows below are tagged with `user_id`,
+-- which stores the Firebase UID (a string, not an auto-increment int).
 
 CREATE TABLE IF NOT EXISTS frameworks (
   id INT PRIMARY KEY,
@@ -19,13 +23,15 @@ CREATE TABLE IF NOT EXISTS frameworks (
 
 CREATE TABLE IF NOT EXISTS sessions (
   id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id VARCHAR(128) NOT NULL,
   title VARCHAR(255) NOT NULL DEFAULT 'Untitled Session',
   framework_id INT,
   context_text MEDIUMTEXT,
   stage VARCHAR(20) NOT NULL DEFAULT 'context',
   committed TINYINT(1) NOT NULL DEFAULT 0,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_sessions_user (user_id)
 );
 
 CREATE TABLE IF NOT EXISTS analyses (
@@ -40,14 +46,17 @@ CREATE TABLE IF NOT EXISTS analyses (
 );
 
 -- Generic store for the newer tools (Issue Tree Builder, MECE Workspace,
--- Pyramid Principle Workspace, SCQA Workshop). Each row is one saved
--- document; `type` distinguishes which tool it belongs to and `data` holds
--- the tool-specific shape (tree nodes, pyramid levels, SCQA fields, etc).
+-- Pyramid Principle Workspace, SCQA Workshop, Logic Tree, Systems Thinking,
+-- First Principles, Hypothesis Workspace). Each row is one saved document;
+-- `type` distinguishes which tool it belongs to and `data` holds the
+-- tool-specific shape (tree nodes, pyramid levels, SCQA fields, etc).
 CREATE TABLE IF NOT EXISTS tool_documents (
   id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id VARCHAR(128) NOT NULL,
   type VARCHAR(30) NOT NULL,
   title VARCHAR(255) NOT NULL DEFAULT 'Untitled',
   data JSON,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_documents_user_type (user_id, type)
 );

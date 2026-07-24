@@ -101,7 +101,28 @@ to the JSON file store (`server/data/db.json`) so you don't need a local MySQL i
 just to run the app on your machine. Only the deployed Hostinger app needs the real
 database.
 
-## 5. After deploying
+## 5. Authentication (Firebase)
+
+User accounts are handled entirely by Firebase Authentication — there's no custom
+password/session logic in this app, and no Firestore/firebase-admin dependency either.
+
+- **Client side**: `client/src/firebase.js` already has the live `principlepitch` Firebase
+  web config baked in (this is the public web API key, safe to ship in the bundle). Email/
+  Password and Google are the two enabled sign-in providers — confirm both are turned on
+  under Firebase Console → Authentication → Sign-in method.
+- **Server side**: `server/auth.js` verifies the Firebase ID token on every
+  `/api/sessions*` and `/api/documents*` request by checking the JWT signature against
+  Google's public JWKS and validating the `issuer`/`audience` claims — no service account
+  key or `firebase-admin` package needed. `FIREBASE_PROJECT_ID` defaults to `principlepitch`
+  already, so **no extra environment variable is required** unless you point this app at a
+  different Firebase project, in which case set `FIREBASE_PROJECT_ID` in hPanel to match.
+- **Data**: sessions/documents are tagged with the Firebase UID (`user_id` / `userId`) so
+  each user only ever sees their own work. There's no separate `users` table — Firebase is
+  the single source of truth for accounts.
+- After deploying, confirm `/signin` and `/signup` load, and that creating an account /
+  signing in redirects into the app and lets you start a workshop.
+
+## 6. After deploying
 
 - Visit the live URL and confirm the home page loads (title should read "Principle Pitch")
 - Click through Home → Library → start a Workshop session → Generate → Commit → Dashboard
@@ -112,7 +133,7 @@ database.
   "Running" in the app dashboard)
 - Check `/api/health` on the live domain returns `{"ok":true}`
 
-## 6. Troubleshooting
+## 7. Troubleshooting
 
 - **"Failed to build the application"** — check the build log in hPanel; most likely
   cause is a missing dependency. Re-run `npm run build` locally first to confirm it's

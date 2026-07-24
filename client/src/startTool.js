@@ -26,6 +26,39 @@ const TOOL_CONFIG = {
     route: "scqa",
     buildData: () => ({}), // SCQA page fills in sensible defaults itself
   },
+  logic_tree: {
+    route: "logic-tree",
+    buildData: () => ({
+      mode: "symptom",
+      nodes: [ROOT_NODE("What is the primary obstacle to user conversion?")],
+    }),
+  },
+  systems_thinking: {
+    route: "systems-thinking",
+    buildData: () => ({
+      nodes: [
+        { id: "n1", kind: "stock", label: "Market Demand", x: 120, y: 100 },
+        { id: "n2", kind: "flow", label: "Production Rate", x: 480, y: 100 },
+      ],
+      edges: [],
+      leveragePoints: [],
+    }),
+  },
+  first_principles: {
+    route: "first-principles",
+    buildData: () => ({ assumptions: [], truths: [], solution: {} }),
+  },
+  hypothesis: {
+    route: "hypothesis",
+    buildData: () => ({
+      hypothesis: "",
+      stage: "in-validation",
+      assumptions: [],
+      testDesign: {},
+      successCriteria: {},
+      evidence: [],
+    }),
+  },
 };
 
 /**

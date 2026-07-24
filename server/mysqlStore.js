@@ -1,5 +1,7 @@
 // MySQL-backed store — used automatically when DB_HOST (and friends) are set,
 // e.g. on Hostinger via its MySQL Database Connect flow.
+// User accounts/passwords live in Firebase Auth, not here — `user_id` below
+// is always the Firebase UID string, attached by the requireAuth middleware.
 import mysql from "mysql2/promise";
 import fs from "fs";
 import path from "path";
@@ -34,16 +36,21 @@ function rowToFramework(row) {
   };
 }
 
+function toIso(value) {
+  return value instanceof Date ? value.toISOString() : value;
+}
+
 function rowToSession(row) {
   return {
     id: row.id,
+    userId: row.user_id,
     title: row.title,
     frameworkId: row.framework_id,
     contextText: row.context_text || "",
     stage: row.stage,
     committed: !!row.committed,
-    createdAt: row.created_at instanceof Date ? row.created_at.toISOString() : row.created_at,
-    updatedAt: row.updated_at instanceof Date ? row.updated_at.toISOString() : row.updated_at,
+    createdAt: toIso(row.created_at),
+    updatedAt: toIso(row.updated_at),
   };
 }
 
@@ -66,8 +73,7 @@ function rowToAnalysis(row) {
     metrics: parseJsonColumn(row.metrics),
     insights: parseJsonColumn(row.insights),
     executiveSummary: row.executive_summary,
-    generatedAt:
-      row.generated_at instanceof Date ? row.generated_at.toISOString() : row.generated_at,
+    generatedAt: toIso(row.generated_at),
   };
 }
 
@@ -109,6 +115,7 @@ export async function init() {
   }
 }
 
+// ---------- Frameworks (global catalog, not user-scoped) ----------
 export async function getFrameworks({ category, complexity, q } = {}) {
   const [totalRows] = await pool.query("SELECT COUNT(*) as count FROM frameworks");
   const total = totalRows[0].count;
@@ -138,39 +145,46 @@ export async function getFramework(id) {
   return rows[0] ? rowToFramework(rows[0]) : null;
 }
 
-export async function listSessions() {
-  const [rows] = await pool.query("SELECT * FROM sessions ORDER BY updated_at DESC");
+// ---------- SWOT sessions (user-scoped by Firebase UID) ----------
+export async function listSessions(userId) {
+  const [rows] = await pool.query(
+    "SELECT * FROM sessions WHERE user_id = ? ORDER BY updated_at DESC",
+    [userId]
+  );
   return rows.map(rowToSession);
 }
 
-export async function createSession({ title, frameworkId, contextText }) {
+export async function createSession({ userId, title, frameworkId, contextText }) {
   const [result] = await pool.query(
-    `INSERT INTO sessions (title, framework_id, context_text, stage, committed)
-     VALUES (?, ?, ?, 'context', 0)`,
-    [title || "Untitled Session", frameworkId || 1, contextText || ""]
+    `INSERT INTO sessions (user_id, title, framework_id, context_text, stage, committed)
+     VALUES (?, ?, ?, ?, 'context', 0)`,
+    [userId, title || "Untitled Session", frameworkId || 1, contextText || ""]
   );
-  return getSession(result.insertId);
+  return getSession(result.insertId, userId);
 }
 
-export async function getSession(id) {
-  const [rows] = await pool.query("SELECT * FROM sessions WHERE id = ?", [id]);
+export async function getSession(id, userId) {
+  const [rows] = await pool.query("SELECT * FROM sessions WHERE id = ? AND user_id = ?", [
+    id,
+    userId,
+  ]);
   return rows[0] ? rowToSession(rows[0]) : null;
 }
 
-export async function getSessionWithAnalysis(id) {
-  const session = await getSession(id);
+export async function getSessionWithAnalysis(id, userId) {
+  const session = await getSession(id, userId);
   if (!session) return null;
   const [rows] = await pool.query("SELECT * FROM analyses WHERE session_id = ?", [id]);
   return { ...session, analysis: rows[0] ? rowToAnalysis(rows[0]) : null };
 }
 
-export async function updateSession(id, patch) {
-  const existing = await getSession(id);
+export async function updateSession(id, userId, patch) {
+  const existing = await getSession(id, userId);
   if (!existing) return null;
   const merged = { ...existing, ...patch };
   await pool.query(
     `UPDATE sessions SET title = ?, framework_id = ?, context_text = ?, stage = ?, committed = ?
-     WHERE id = ?`,
+     WHERE id = ? AND user_id = ?`,
     [
       merged.title,
       merged.frameworkId,
@@ -178,13 +192,17 @@ export async function updateSession(id, patch) {
       merged.stage,
       merged.committed ? 1 : 0,
       id,
+      userId,
     ]
   );
-  return getSession(id);
+  return getSession(id, userId);
 }
 
-export async function deleteSession(id) {
-  const [result] = await pool.query("DELETE FROM sessions WHERE id = ?", [id]);
+export async function deleteSession(id, userId) {
+  const [result] = await pool.query("DELETE FROM sessions WHERE id = ? AND user_id = ?", [
+    id,
+    userId,
+  ]);
   return result.affectedRows > 0;
 }
 
@@ -208,56 +226,64 @@ export async function saveAnalysis(sessionId, analysisResult) {
   return rowToAnalysis(rows[0]);
 }
 
-// ---------- Generic tool documents (Issue Tree, MECE, Pyramid, SCQA) ----------
+// ---------- Generic tool documents (user-scoped by Firebase UID) ----------
 function rowToDocument(row) {
   if (!row) return null;
   return {
     id: row.id,
+    userId: row.user_id,
     type: row.type,
     title: row.title,
     data: parseJsonColumn(row.data),
-    createdAt: row.created_at instanceof Date ? row.created_at.toISOString() : row.created_at,
-    updatedAt: row.updated_at instanceof Date ? row.updated_at.toISOString() : row.updated_at,
+    createdAt: toIso(row.created_at),
+    updatedAt: toIso(row.updated_at),
   };
 }
 
-export async function listDocuments(type) {
+export async function listDocuments(type, userId) {
   const [rows] = await pool.query(
-    "SELECT * FROM tool_documents WHERE type = ? ORDER BY updated_at DESC",
-    [type]
+    "SELECT * FROM tool_documents WHERE type = ? AND user_id = ? ORDER BY updated_at DESC",
+    [type, userId]
   );
   return rows.map(rowToDocument);
 }
 
-export async function createDocument({ type, title, data }) {
+export async function createDocument({ userId, type, title, data }) {
   const [result] = await pool.query(
-    "INSERT INTO tool_documents (type, title, data) VALUES (?, ?, ?)",
-    [type, title || "Untitled", JSON.stringify(data ?? {})]
+    "INSERT INTO tool_documents (user_id, type, title, data) VALUES (?, ?, ?, ?)",
+    [userId, type, title || "Untitled", JSON.stringify(data ?? {})]
   );
-  return getDocument(result.insertId);
+  return getDocument(result.insertId, userId);
 }
 
-export async function getDocument(id) {
-  const [rows] = await pool.query("SELECT * FROM tool_documents WHERE id = ?", [id]);
+export async function getDocument(id, userId) {
+  const [rows] = await pool.query(
+    "SELECT * FROM tool_documents WHERE id = ? AND user_id = ?",
+    [id, userId]
+  );
   return rows[0] ? rowToDocument(rows[0]) : null;
 }
 
-export async function updateDocument(id, patch) {
-  const existing = await getDocument(id);
+export async function updateDocument(id, userId, patch) {
+  const existing = await getDocument(id, userId);
   if (!existing) return null;
   const merged = {
     title: patch.title ?? existing.title,
     data: patch.data ?? existing.data,
   };
-  await pool.query("UPDATE tool_documents SET title = ?, data = ? WHERE id = ?", [
+  await pool.query("UPDATE tool_documents SET title = ?, data = ? WHERE id = ? AND user_id = ?", [
     merged.title,
     JSON.stringify(merged.data ?? {}),
     id,
+    userId,
   ]);
-  return getDocument(id);
+  return getDocument(id, userId);
 }
 
-export async function deleteDocument(id) {
-  const [result] = await pool.query("DELETE FROM tool_documents WHERE id = ?", [id]);
+export async function deleteDocument(id, userId) {
+  const [result] = await pool.query(
+    "DELETE FROM tool_documents WHERE id = ? AND user_id = ?",
+    [id, userId]
+  );
   return result.affectedRows > 0;
 }

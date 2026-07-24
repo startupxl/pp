@@ -5,6 +5,9 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DB_FILE = path.join(__dirname, "data", "db.json");
 
+// Note: no `users` collection here — accounts and passwords live entirely
+// in Firebase Authentication. Sessions/documents are tagged with the
+// Firebase UID string directly (see server/auth.js).
 function defaultData() {
   return {
     frameworks: [],

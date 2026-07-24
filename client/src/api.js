@@ -1,9 +1,21 @@
 const BASE = "/api";
 
+// AuthContext registers a token-getter here on mount so this plain module
+// (outside React) can attach a fresh Firebase ID token to every request
+// without importing React/AuthContext directly.
+let getAuthToken = async () => null;
+export function setAuthTokenGetter(fn) {
+  getAuthToken = fn;
+}
+
 async function request(path, options = {}) {
+  const token = await getAuthToken();
+  const headers = { "Content-Type": "application/json", ...(options.headers || {}) };
+  if (token) headers.Authorization = `Bearer ${token}`;
+
   const res = await fetch(`${BASE}${path}`, {
-    headers: { "Content-Type": "application/json" },
     ...options,
+    headers,
   });
   if (!res.ok && res.status !== 204) {
     const text = await res.text();
