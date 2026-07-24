@@ -1,0 +1,15 @@
+{
+  "name": "principlepitch-server",
+  "version": "1.0.0",
+  "description": "Principle Pitch API server",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5"
+  }
+}

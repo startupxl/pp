@@ -1,0 +1,12 @@
+node_modules/
+**/node_modules/
+dist/
+dist_old_*/
+dist_stale_*/
+.DS_Store
+*.log
+.env
+.env.local
+
+# Original design reference mockups — not part of the deployable app
+/New Folder With Items/

@@ -1,0 +1,224 @@
+{
+  "frameworks": [
+    {
+      "id": 1,
+      "name": "SWOT Analysis",
+      "category": "Strategy",
+      "complexity": "Beginner",
+      "readTime": "15 min read",
+      "tag": "Strategic Planning",
+      "description": "Master your environment by identifying Strengths, Weaknesses, Opportunities, and Threats. The foundational tool for every high-stakes decision.",
+      "featured": true,
+      "workshop": true,
+      "tool": "swot"
+    },
+    {
+      "id": 2,
+      "name": "First Principles",
+      "category": "Strategy",
+      "complexity": "Intermediate",
+      "readTime": "10 min read",
+      "tag": "Strategy",
+      "description": "Breaking down complex problems into basic elements and then reassembling them from the ground up."
+    },
+    {
+      "id": 3,
+      "name": "The Hero's Journey",
+      "category": "Narrative",
+      "complexity": "Beginner",
+      "readTime": "8 min read",
+      "tag": "Narrative",
+      "description": "A structural framework for storytelling used to create compelling brand narratives and product visions."
+    },
+    {
+      "id": 4,
+      "name": "Cynefin Framework",
+      "category": "Problem Solving",
+      "complexity": "Advanced",
+      "readTime": "15 min read",
+      "tag": "New Framework",
+      "description": "A decision-making tool used to help managers, policy-makers and others identify how they perceive situations and make sense of their own and other people's behavior.",
+      "isNew": true
+    },
+    {
+      "id": 5,
+      "name": "5 Whys",
+      "category": "Problem Solving",
+      "complexity": "Beginner",
+      "readTime": "5 min read",
+      "tag": "Problem Solving",
+      "description": "An iterative interrogative technique used to explore the cause-and-effect relationships underlying a problem."
+    },
+    {
+      "id": 6,
+      "name": "STAR Method",
+      "category": "Narrative",
+      "complexity": "Beginner",
+      "readTime": "6 min read",
+      "tag": "Communication",
+      "description": "Structure your responses to showcase leadership and impact under pressure."
+    },
+    {
+      "id": 7,
+      "name": "Minto Pyramid",
+      "category": "Narrative",
+      "complexity": "Intermediate",
+      "readTime": "12 min read",
+      "tag": "Logical Thinking",
+      "description": "The gold standard for top-down logic and effective executive communication.",
+      "workshop": true,
+      "tool": "pyramid"
+    },
+    {
+      "id": 8,
+      "name": "Eisenhower Matrix",
+      "category": "Leadership",
+      "complexity": "Beginner",
+      "readTime": "5 min read",
+      "tag": "Leadership",
+      "description": "Prioritize what matters by sorting tasks along urgency and importance."
+    },
+    {
+      "id": 9,
+      "name": "Porter's Five Forces",
+      "category": "Strategy",
+      "complexity": "Advanced",
+      "readTime": "14 min read",
+      "tag": "Strategy",
+      "description": "Analyze the competitive intensity and attractiveness of an industry."
+    },
+    {
+      "id": 10,
+      "name": "OKR Planning",
+      "category": "Leadership",
+      "complexity": "Intermediate",
+      "readTime": "9 min read",
+      "tag": "Leadership",
+      "description": "Set ambitious objectives with measurable key results to align teams."
+    },
+    {
+      "id": 11,
+      "name": "Issue Tree Builder",
+      "category": "Problem Solving",
+      "complexity": "Intermediate",
+      "readTime": "12 min read",
+      "tag": "Problem Solving",
+      "description": "Break a root question into mutually exclusive, collectively exhaustive branches on a pannable, zoomable canvas.",
+      "workshop": true,
+      "tool": "issue_tree"
+    },
+    {
+      "id": 12,
+      "name": "MECE Workspace",
+      "category": "Problem Solving",
+      "complexity": "Intermediate",
+      "readTime": "10 min read",
+      "tag": "Problem Solving",
+      "description": "Decompose a core problem into categories with live overlap and gap auditing, so nothing is double-counted or missed.",
+      "workshop": true,
+      "tool": "mece"
+    },
+    {
+      "id": 13,
+      "name": "SCQA Storytelling",
+      "category": "Narrative",
+      "complexity": "Beginner",
+      "readTime": "8 min read",
+      "tag": "Narrative",
+      "description": "Structure a tight pitch narrative — Situation, Complication, Question, Answer — with a live preview as you write.",
+      "workshop": true,
+      "tool": "scqa"
+    }
+  ],
+  "sessions": [
+    {
+      "id": 1,
+      "title": "Freelancer SaaS Churn Review",
+      "frameworkId": 1,
+      "contextText": "We run a small SaaS tool for freelancers, facing churn",
+      "stage": "strategy",
+      "createdAt": "2026-07-24T05:57:17.160Z",
+      "updatedAt": "2026-07-24T05:57:35.170Z",
+      "committed": true
+    }
+  ],
+  "analyses": [
+    {
+      "id": 1,
+      "sessionId": 1,
+      "quadrants": {
+        "strengths": [
+          {
+            "text": "Established credibility and momentum in the core area described"
+          },
+          {
+            "text": "Clear founder/operator conviction and first-hand domain knowledge"
+          }
+        ],
+        "weaknesses": [
+          {
+            "text": "Limited resources to pursue every opportunity simultaneously"
+          },
+          {
+            "text": "Brand/awareness gap outside the immediate existing audience"
+          }
+        ],
+        "opportunities": [
+          {
+            "text": "Shifting market conditions favor faster, more focused players"
+          },
+          {
+            "text": "Potential for a recurring or subscription-style revenue layer"
+          }
+        ],
+        "threats": [
+          {
+            "text": "Regulatory or platform changes outside of direct control"
+          },
+          {
+            "text": "Rising input costs or supplier dependency risk"
+          }
+        ]
+      },
+      "metrics": {
+        "marketViability": 66,
+        "riskIndex": 28,
+        "roi": "1.6x",
+        "timelineIntegrity": 91,
+        "burnRateOptimization": -12
+      },
+      "insights": [
+        {
+          "icon": "trending_up",
+          "title": "Growth Strategy",
+          "body": "Double down on \"established credibility and momentum in the core area described\" to widen the gap on We run a small SaaS tool for freelancers, facing churn.",
+          "tags": [
+            "PRIORITY: HIGH",
+            "ACTIONABLE"
+          ]
+        },
+        {
+          "icon": "shield",
+          "title": "Risk Mitigation",
+          "body": "Address \"limited resources to pursue every opportunity simultaneously\" before it becomes a blocker to execution.",
+          "tags": [
+            "URGENCY: MID",
+            "TECHNICAL"
+          ]
+        },
+        {
+          "icon": "military_tech",
+          "title": "Competitive Edge",
+          "body": "Leverage \"shifting market conditions favor faster, more focused players\" as the wedge that incumbents can't easily copy.",
+          "tags": [
+            "LONG-TERM",
+            "MARKETING"
+          ]
+        }
+      ],
+      "executiveSummary": "We run a small SaaS tool for freelancers, facing churn shows real upside, anchored by established credibility and momentum in the core area described. The primary blocker is limited resources to pursue every opportunity simultaneously, which can be mitigated by acting on shifting market conditions favor faster, more focused players ahead of regulatory or platform changes outside of direct control.",
+      "generatedAt": "2026-07-24T05:57:35.147Z"
+    }
+  ],
+  "documents": []
+}

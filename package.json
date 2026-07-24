@@ -1,0 +1,23 @@
+{
+  "name": "principlepitch",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Principle Pitch — strategic frameworks & SWOT workshop app",
+  "type": "module",
+  "main": "server/index.js",
+  "engines": {
+    "node": "20.x"
+  },
+  "scripts": {
+    "build": "npm install --prefix client && npm run build --prefix client",
+    "start": "node server/index.js",
+    "dev:client": "npm run dev --prefix client",
+    "dev:server": "node server/index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
+    "express": "^4.19.2",
+    "mysql2": "^3.23.1"
+  }
+}
