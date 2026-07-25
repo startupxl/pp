@@ -320,6 +320,58 @@ export const frameworks = [
     isNew: true,
     tool: "raci",
   },
+  {
+    id: 28,
+    name: "Retrospective Workshop",
+    category: "Leadership",
+    complexity: "Beginner",
+    readTime: "8 min read",
+    tag: "Team Health",
+    description:
+      "Run a Start, Stop, Continue retrospective with sticky-note voting and a shared action item checklist.",
+    workshop: true,
+    isNew: true,
+    tool: "retrospective",
+  },
+  {
+    id: 29,
+    name: "Sprint Planning Workshop",
+    category: "Leadership",
+    complexity: "Intermediate",
+    readTime: "10 min read",
+    tag: "Agile",
+    description:
+      "Move stories from the product backlog into the sprint backlog with live capacity utilization and sprint health.",
+    workshop: true,
+    isNew: true,
+    tool: "sprint_planning",
+  },
+  {
+    id: 30,
+    name: "Critical Path Analysis Workshop",
+    category: "Leadership",
+    complexity: "Advanced",
+    readTime: "14 min read",
+    tag: "Project Scheduling",
+    description:
+      "Compute the true critical path from task durations and dependencies using forward/backward pass CPM analysis.",
+    workshop: true,
+    isNew: true,
+    tool: "critical_path",
+  },
+  {
+    id: 31,
+    name: "Project Workspace",
+    category: "Leadership",
+    complexity: "Intermediate",
+    readTime: "12 min read",
+    tag: "Gantt Timeline",
+    description:
+      "Plan tasks and milestones on a proportional Gantt timeline computed from start dates, durations, and progress.",
+    workshop: true,
+    isNew: true,
+    tool: "project_workspace",
+  },
 ];
 
 export const goals = [

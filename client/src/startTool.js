@@ -119,6 +119,22 @@ const TOOL_CONFIG = {
     route: "raci",
     buildData: () => ({ people: [], tasks: [] }),
   },
+  retrospective: {
+    route: "retrospective",
+    buildData: () => ({ columns: { start: [], stop: [], continue: [] }, actionItems: [] }),
+  },
+  sprint_planning: {
+    route: "sprint-planning",
+    buildData: () => ({ sprintGoal: "", capacity: 60, backlog: [], sprint: [] }),
+  },
+  critical_path: {
+    route: "critical-path",
+    buildData: () => ({ tasks: [] }),
+  },
+  project_workspace: {
+    route: "project-workspace",
+    buildData: () => ({ tasks: [] }),
+  },
 };
 
 /**

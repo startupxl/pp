@@ -25,6 +25,10 @@ const DOCUMENT_TYPES = [
   { type: "product_roadmap", route: "product-roadmap", label: "Product Roadmap Workshop" },
   { type: "project_charter", route: "project-charter", label: "Project Charter Workshop" },
   { type: "raci", route: "raci", label: "RACI Matrix Workshop" },
+  { type: "retrospective", route: "retrospective", label: "Retrospective Workshop" },
+  { type: "sprint_planning", route: "sprint-planning", label: "Sprint Planning Workshop" },
+  { type: "critical_path", route: "critical-path", label: "Critical Path Analysis Workshop" },
+  { type: "project_workspace", route: "project-workspace", label: "Project Workspace" },
 ];
 
 export default function Home() {

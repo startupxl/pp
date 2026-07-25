@@ -22,6 +22,10 @@ import Okr from "./pages/Okr";
 import ProductRoadmap from "./pages/ProductRoadmap";
 import ProjectCharter from "./pages/ProjectCharter";
 import Raci from "./pages/Raci";
+import Retrospective from "./pages/Retrospective";
+import SprintPlanning from "./pages/SprintPlanning";
+import CriticalPath from "./pages/CriticalPath";
+import ProjectWorkspace from "./pages/ProjectWorkspace";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -221,6 +225,38 @@ function App() {
           element={
             <ProtectedRoute>
               <Raci />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/retrospective/:id"
+          element={
+            <ProtectedRoute>
+              <Retrospective />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/sprint-planning/:id"
+          element={
+            <ProtectedRoute>
+              <SprintPlanning />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/critical-path/:id"
+          element={
+            <ProtectedRoute>
+              <CriticalPath />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/project-workspace/:id"
+          element={
+            <ProtectedRoute>
+              <ProjectWorkspace />
             </ProtectedRoute>
           }
         />
