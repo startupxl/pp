@@ -420,6 +420,84 @@ const TOOL_CONFIG = {
     route: "social-media-strategy",
     buildData: () => ({ channels: [], pillars: [], voiceBalance: 50, postingFrequency: 1, videoRatio: 0, communityReplies: "low" }),
   },
+  customer_health_scorecard: {
+    route: "customer-health-scorecard",
+    buildData: () => ({ accounts: [], renewals: [], expansions: [] }),
+  },
+  onboarding_roadmap: {
+    route: "onboarding-roadmap",
+    buildData: () => ({ employeeName: "", phases: [], contacts: [] }),
+  },
+  hiring_scorecard: {
+    route: "hiring-scorecard",
+    buildData: () => ({
+      candidateName: "",
+      roleName: "",
+      criteria: [
+        { id: "c1", label: "Technical Skills", weight: 40, rating: 3 },
+        { id: "c2", label: "Cultural Fit", weight: 30, rating: 3 },
+        { id: "c3", label: "Relevant Experience", weight: 30, rating: 3 },
+      ],
+      interviewers: [],
+      notes: "",
+      recommendation: "hire",
+    }),
+  },
+  lead_management: {
+    route: "lead-management",
+    buildData: () => ({ leads: [] }),
+  },
+  pricing_packaging: {
+    route: "pricing-packaging",
+    buildData: () => ({
+      tiers: [
+        { id: "seed", name: "Seed", price: 0, users: 0 },
+        { id: "pro", name: "Pro", price: 0, users: 0 },
+        { id: "enterprise", name: "Enterprise", price: 0, users: 0 },
+      ],
+      competitors: [],
+      featureList: [],
+      ourFeatures: {},
+    }),
+  },
+  recruitment_funnel: {
+    route: "recruitment-funnel",
+    buildData: () => ({
+      stages: [
+        { id: "applied", label: "Applied", count: 0 },
+        { id: "screened", label: "Screened", count: 0 },
+        { id: "interviewed", label: "Interviewed", count: 0 },
+        { id: "offered", label: "Offered", count: 0 },
+        { id: "hired", label: "Hired", count: 0 },
+      ],
+      sources: [],
+      timeToHireDays: 0,
+    }),
+  },
+  sales_pipeline: {
+    route: "sales-pipeline",
+    buildData: () => ({ deals: [] }),
+  },
+  team_capacity_heatmap: {
+    route: "team-capacity-heatmap",
+    buildData: () => ({ weeks: ["Wk 1", "Wk 2", "Wk 3", "Wk 4"], departments: [], openHeadcount: 0, projectedGapRoles: 0 }),
+  },
+  compliance_hub: {
+    route: "compliance-hub",
+    buildData: () => ({ frameworks: [], documents: [], deadlines: [] }),
+  },
+  product_analytics: {
+    route: "product-analytics",
+    buildData: () => ({
+      northStar: { label: "", current: 0, target: 0 },
+      dailyActive: [
+        { day: "Mon", pct: 0 }, { day: "Tue", pct: 0 }, { day: "Wed", pct: 0 },
+        { day: "Thu", pct: 0 }, { day: "Fri", pct: 0 }, { day: "Sat", pct: 0 }, { day: "Sun", pct: 0 },
+      ],
+      cohorts: [],
+      features: [],
+    }),
+  },
 };
 
 /**

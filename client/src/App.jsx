@@ -57,6 +57,16 @@ import BalancedScorecard from "./pages/BalancedScorecard";
 import ContentCalendar from "./pages/ContentCalendar";
 import Mckinsey7s from "./pages/Mckinsey7s";
 import SocialMediaStrategy from "./pages/SocialMediaStrategy";
+import CustomerHealthScorecard from "./pages/CustomerHealthScorecard";
+import OnboardingRoadmap from "./pages/OnboardingRoadmap";
+import HiringScorecard from "./pages/HiringScorecard";
+import LeadManagement from "./pages/LeadManagement";
+import PricingPackaging from "./pages/PricingPackaging";
+import RecruitmentFunnel from "./pages/RecruitmentFunnel";
+import SalesPipeline from "./pages/SalesPipeline";
+import TeamCapacityHeatmap from "./pages/TeamCapacityHeatmap";
+import ComplianceHub from "./pages/ComplianceHub";
+import ProductAnalytics from "./pages/ProductAnalytics";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -536,6 +546,86 @@ function App() {
           element={
             <ProtectedRoute>
               <SocialMediaStrategy />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/customer-health-scorecard/:id"
+          element={
+            <ProtectedRoute>
+              <CustomerHealthScorecard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/onboarding-roadmap/:id"
+          element={
+            <ProtectedRoute>
+              <OnboardingRoadmap />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/hiring-scorecard/:id"
+          element={
+            <ProtectedRoute>
+              <HiringScorecard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/lead-management/:id"
+          element={
+            <ProtectedRoute>
+              <LeadManagement />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/pricing-packaging/:id"
+          element={
+            <ProtectedRoute>
+              <PricingPackaging />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/recruitment-funnel/:id"
+          element={
+            <ProtectedRoute>
+              <RecruitmentFunnel />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/sales-pipeline/:id"
+          element={
+            <ProtectedRoute>
+              <SalesPipeline />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/team-capacity-heatmap/:id"
+          element={
+            <ProtectedRoute>
+              <TeamCapacityHeatmap />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/compliance-hub/:id"
+          element={
+            <ProtectedRoute>
+              <ComplianceHub />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/product-analytics/:id"
+          element={
+            <ProtectedRoute>
+              <ProductAnalytics />
             </ProtectedRoute>
           }
         />

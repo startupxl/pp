@@ -60,6 +60,16 @@ const DOCUMENT_TYPES = [
   { type: "content_calendar", route: "content-calendar", label: "Content Calendar Workshop" },
   { type: "mckinsey_7s", route: "mckinsey-7s", label: "McKinsey 7S Workshop" },
   { type: "social_media_strategy", route: "social-media-strategy", label: "Social Media Strategy Lab" },
+  { type: "customer_health_scorecard", route: "customer-health-scorecard", label: "Customer Success Health Scorecard" },
+  { type: "onboarding_roadmap", route: "onboarding-roadmap", label: "Employee Onboarding Workshop" },
+  { type: "hiring_scorecard", route: "hiring-scorecard", label: "Hiring Scorecard Workshop" },
+  { type: "lead_management", route: "lead-management", label: "Lead Management Workspace" },
+  { type: "pricing_packaging", route: "pricing-packaging", label: "Pricing & Packaging Workshop" },
+  { type: "recruitment_funnel", route: "recruitment-funnel", label: "Recruitment Funnel Workshop" },
+  { type: "sales_pipeline", route: "sales-pipeline", label: "Sales Pipeline Kanban" },
+  { type: "team_capacity_heatmap", route: "team-capacity-heatmap", label: "Team Capacity Heatmap" },
+  { type: "compliance_hub", route: "compliance-hub", label: "Legal & Compliance Hub" },
+  { type: "product_analytics", route: "product-analytics", label: "Product Analytics Dashboard" },
 ];
 
 export default function Home() {
