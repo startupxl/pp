@@ -723,6 +723,58 @@ export const frameworks = [
     isNew: true,
     tool: "stakeholder_mapping",
   },
+  {
+    id: 59,
+    name: "Balanced Scorecard Dashboard",
+    category: "Strategy",
+    complexity: "Advanced",
+    readTime: "11 min read",
+    tag: "Organizational Health",
+    description:
+      "Track Financial, Customer, Internal Process, and Learning & Growth KPIs side by side with automatic status scoring and a weighted overall health score.",
+    workshop: true,
+    isNew: true,
+    tool: "balanced_scorecard",
+  },
+  {
+    id: 60,
+    name: "Content Calendar Workshop",
+    category: "Marketing",
+    complexity: "Beginner",
+    readTime: "7 min read",
+    tag: "Content Planning",
+    description:
+      "Plan campaign objectives and schedule content across Blog, Social, Email, and Video with completion tracking and channel-load insights.",
+    workshop: true,
+    isNew: true,
+    tool: "content_calendar",
+  },
+  {
+    id: 61,
+    name: "McKinsey 7S Workshop",
+    category: "Strategy",
+    complexity: "Advanced",
+    readTime: "10 min read",
+    tag: "Organizational Alignment",
+    description:
+      "Diagnose organizational effectiveness across the 7 interconnected elements — Strategy, Structure, Systems, Shared Values, Style, Staff, and Skills — with a live harmony score.",
+    workshop: true,
+    isNew: true,
+    tool: "mckinsey_7s",
+  },
+  {
+    id: 62,
+    name: "Social Media Strategy Lab",
+    category: "Marketing",
+    complexity: "Intermediate",
+    readTime: "9 min read",
+    tag: "Channel Strategy",
+    description:
+      "Map channels, tune voice and tone, define content pillars, and simulate engagement forecasts before you publish.",
+    workshop: true,
+    isNew: true,
+    tool: "social_media_strategy",
+  },
 ];
 
 export const goals = [

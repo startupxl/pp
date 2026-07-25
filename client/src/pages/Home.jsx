@@ -56,6 +56,10 @@ const DOCUMENT_TYPES = [
   { type: "ice_scoring", route: "ice-scoring", label: "ICE Scoring Workshop" },
   { type: "moscow_prioritization", route: "moscow-prioritization", label: "MoSCoW Prioritization Workshop" },
   { type: "stakeholder_mapping", route: "stakeholder-mapping", label: "Stakeholder Mapping" },
+  { type: "balanced_scorecard", route: "balanced-scorecard", label: "Balanced Scorecard Dashboard" },
+  { type: "content_calendar", route: "content-calendar", label: "Content Calendar Workshop" },
+  { type: "mckinsey_7s", route: "mckinsey-7s", label: "McKinsey 7S Workshop" },
+  { type: "social_media_strategy", route: "social-media-strategy", label: "Social Media Strategy Lab" },
 ];
 
 export default function Home() {

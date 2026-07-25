@@ -53,6 +53,10 @@ import RiskAssessment from "./pages/RiskAssessment";
 import IceScoring from "./pages/IceScoring";
 import MoscowPrioritization from "./pages/MoscowPrioritization";
 import StakeholderMapping from "./pages/StakeholderMapping";
+import BalancedScorecard from "./pages/BalancedScorecard";
+import ContentCalendar from "./pages/ContentCalendar";
+import Mckinsey7s from "./pages/Mckinsey7s";
+import SocialMediaStrategy from "./pages/SocialMediaStrategy";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -500,6 +504,38 @@ function App() {
           element={
             <ProtectedRoute>
               <StakeholderMapping />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/balanced-scorecard/:id"
+          element={
+            <ProtectedRoute>
+              <BalancedScorecard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/content-calendar/:id"
+          element={
+            <ProtectedRoute>
+              <ContentCalendar />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/mckinsey-7s/:id"
+          element={
+            <ProtectedRoute>
+              <Mckinsey7s />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/social-media-strategy/:id"
+          element={
+            <ProtectedRoute>
+              <SocialMediaStrategy />
             </ProtectedRoute>
           }
         />

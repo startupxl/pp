@@ -361,6 +361,65 @@ const TOOL_CONFIG = {
     route: "stakeholder-mapping",
     buildData: () => ({ stakeholders: [] }),
   },
+  balanced_scorecard: {
+    route: "balanced-scorecard",
+    buildData: () => ({
+      perspectives: [
+        {
+          id: "financial",
+          name: "Financial",
+          icon: "payments",
+          kpis: [
+            { id: "k1", label: "Revenue Growth", current: 0, target: 0, unit: "$M" },
+            { id: "k2", label: "Net Profit Margin", current: 0, target: 0, unit: "%" },
+          ],
+        },
+        {
+          id: "customer",
+          name: "Customer",
+          icon: "group",
+          kpis: [
+            { id: "k3", label: "Net Promoter Score", current: 0, target: 0, unit: "" },
+            { id: "k4", label: "Customer Retention Rate", current: 0, target: 0, unit: "%" },
+          ],
+        },
+        {
+          id: "internal_process",
+          name: "Internal Process",
+          icon: "settings_suggest",
+          kpis: [{ id: "k5", label: "Cycle Time", current: 0, target: 0, unit: "d", lowerIsBetter: true }],
+        },
+        {
+          id: "learning_growth",
+          name: "Learning & Growth",
+          icon: "psychology",
+          kpis: [{ id: "k6", label: "Talent Retention Rate", current: 0, target: 0, unit: "%" }],
+        },
+      ],
+    }),
+  },
+  content_calendar: {
+    route: "content-calendar",
+    buildData: () => ({ objectives: [], items: [] }),
+  },
+  mckinsey_7s: {
+    route: "mckinsey-7s",
+    buildData: () => ({
+      elements: [
+        { key: "strategy", assessment: "", complete: false },
+        { key: "structure", assessment: "", complete: false },
+        { key: "systems", assessment: "", complete: false },
+        { key: "shared_values", assessment: "", complete: false },
+        { key: "style", assessment: "", complete: false },
+        { key: "staff", assessment: "", complete: false },
+        { key: "skills", assessment: "", complete: false },
+      ],
+    }),
+  },
+  social_media_strategy: {
+    route: "social-media-strategy",
+    buildData: () => ({ channels: [], pillars: [], voiceBalance: 50, postingFrequency: 1, videoRatio: 0, communityReplies: "low" }),
+  },
 };
 
 /**
