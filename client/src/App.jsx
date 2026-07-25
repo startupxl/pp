@@ -47,6 +47,12 @@ import JtbdWorkshop from "./pages/JtbdWorkshop";
 import PlForecasting from "./pages/PlForecasting";
 import CustomerJourney from "./pages/CustomerJourney";
 import UserPersona from "./pages/UserPersona";
+import EquityManagement from "./pages/EquityManagement";
+import GtmStrategy from "./pages/GtmStrategy";
+import RiskAssessment from "./pages/RiskAssessment";
+import IceScoring from "./pages/IceScoring";
+import MoscowPrioritization from "./pages/MoscowPrioritization";
+import StakeholderMapping from "./pages/StakeholderMapping";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -446,6 +452,54 @@ function App() {
           element={
             <ProtectedRoute>
               <UserPersona />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/equity-management/:id"
+          element={
+            <ProtectedRoute>
+              <EquityManagement />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/gtm-strategy/:id"
+          element={
+            <ProtectedRoute>
+              <GtmStrategy />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/risk-assessment/:id"
+          element={
+            <ProtectedRoute>
+              <RiskAssessment />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/ice-scoring/:id"
+          element={
+            <ProtectedRoute>
+              <IceScoring />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/moscow-prioritization/:id"
+          element={
+            <ProtectedRoute>
+              <MoscowPrioritization />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/stakeholder-mapping/:id"
+          element={
+            <ProtectedRoute>
+              <StakeholderMapping />
             </ProtectedRoute>
           }
         />

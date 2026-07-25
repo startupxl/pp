@@ -50,6 +50,12 @@ const DOCUMENT_TYPES = [
   { type: "pl_forecasting", route: "pl-forecasting", label: "P&L Forecasting" },
   { type: "customer_journey", route: "customer-journey", label: "Customer Journey Workspace" },
   { type: "user_persona", route: "user-persona", label: "User Persona Workshop" },
+  { type: "equity_management", route: "equity-management", label: "Equity & Cap Table" },
+  { type: "gtm_strategy", route: "gtm-strategy", label: "GTM Strategy Workspace" },
+  { type: "risk_assessment", route: "risk-assessment", label: "Strategic Risk Workspace" },
+  { type: "ice_scoring", route: "ice-scoring", label: "ICE Scoring Workshop" },
+  { type: "moscow_prioritization", route: "moscow-prioritization", label: "MoSCoW Prioritization Workshop" },
+  { type: "stakeholder_mapping", route: "stakeholder-mapping", label: "Stakeholder Mapping" },
 ];
 
 export default function Home() {

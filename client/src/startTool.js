@@ -316,6 +316,51 @@ const TOOL_CONFIG = {
       quote: "",
     }),
   },
+  equity_management: {
+    route: "equity-management",
+    buildData: () => ({
+      shareholders: [
+        { id: "s1", name: "Founder", type: "Common", shares: 5000000 },
+      ],
+      esopPoolShares: 1000000,
+      newRoundShares: 0,
+      newRoundHolderName: "New Investor",
+    }),
+  },
+  gtm_strategy: {
+    route: "gtm-strategy",
+    buildData: () => ({
+      funnelStages: [
+        { id: "leads", label: "Leads", count: 0 },
+        { id: "mql", label: "MQLs", count: 0 },
+        { id: "sql", label: "SQLs", count: 0 },
+        { id: "opp", label: "Opportunities", count: 0 },
+        { id: "closed", label: "Closed Won", count: 0 },
+      ],
+      checklist: [
+        { id: "c1", label: "Define ICP Parameters", status: "pending", progress: 0 },
+        { id: "c2", label: "Map Buyer Personas", status: "pending", progress: 0 },
+        { id: "c3", label: "Sales Script Iteration", status: "pending", progress: 0 },
+      ],
+      icps: [],
+    }),
+  },
+  risk_assessment: {
+    route: "risk-assessment",
+    buildData: () => ({ risks: [] }),
+  },
+  ice_scoring: {
+    route: "ice-scoring",
+    buildData: () => ({ initiatives: [] }),
+  },
+  moscow_prioritization: {
+    route: "moscow-prioritization",
+    buildData: () => ({ tasks: [] }),
+  },
+  stakeholder_mapping: {
+    route: "stakeholder-mapping",
+    buildData: () => ({ stakeholders: [] }),
+  },
 };
 
 /**
