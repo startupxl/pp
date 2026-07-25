@@ -515,6 +515,58 @@ export const frameworks = [
     isNew: true,
     tool: "star_framework",
   },
+  {
+    id: 43,
+    name: "BLUF Workshop",
+    category: "Communication",
+    complexity: "Beginner",
+    readTime: "7 min read",
+    tag: "Executive Messaging",
+    description:
+      "Paste a draft and get a deterministic read on verbosity and actionability, plus a Bottom-Line-Up-Front rewrite lead and suggested subject line.",
+    workshop: true,
+    isNew: true,
+    tool: "bluf_workshop",
+  },
+  {
+    id: 44,
+    name: "Executive Decision SIR",
+    category: "Strategy",
+    complexity: "Advanced",
+    readTime: "12 min read",
+    tag: "Executive Decisions",
+    description:
+      "Break a high-stakes call into Situation, Impact, and Recommendation, with a computed decision-confidence score and executive summary.",
+    workshop: true,
+    isNew: true,
+    tool: "decision_sir",
+  },
+  {
+    id: 45,
+    name: "Tell → Show → Tell Workshop",
+    category: "Communication",
+    complexity: "Beginner",
+    readTime: "8 min read",
+    tag: "Presentation Structure",
+    description:
+      "Structure any presentation with the classic three-part narrative — intro, evidence, and outro — with a computed readiness score.",
+    workshop: true,
+    isNew: true,
+    tool: "tell_show_tell",
+  },
+  {
+    id: 46,
+    name: "Initiative Workshop",
+    category: "Strategy",
+    complexity: "Beginner",
+    readTime: "9 min read",
+    tag: "Pitch & Narrative",
+    description:
+      "Turn a raw idea into a high-conviction pitch with the What → Why → How method, a jargon/clarity score, and a synthesized elevator pitch.",
+    workshop: true,
+    isNew: true,
+    tool: "initiative_workshop",
+  },
 ];
 
 export const goals = [

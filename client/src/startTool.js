@@ -218,6 +218,46 @@ const TOOL_CONFIG = {
     route: "star-framework",
     buildData: () => ({ situation: "", task: "", action: "", result: "" }),
   },
+  bluf_workshop: {
+    route: "bluf-workshop",
+    buildData: () => ({ draftText: "", subjectLine: "" }),
+  },
+  decision_sir: {
+    route: "decision-sir",
+    buildData: () => ({
+      situation: "",
+      situationPoints: ["", "", ""],
+      financialRiskPerHour: "",
+      churnRisk: "Medium",
+      opexWasteMonthly: "",
+      impactNarrative: "",
+      recommendation: "",
+      steps: [
+        { label: "", phase: "Phase 1" },
+        { label: "", phase: "Phase 2" },
+      ],
+      timeToValueMonths: "",
+    }),
+  },
+  tell_show_tell: {
+    route: "tell-show-tell",
+    buildData: () => ({
+      hook: "",
+      agendaPoints: ["", ""],
+      evidenceNotes: "",
+      checklist: [
+        { label: "Clear Objective", hint: "The end goal is explicitly stated.", done: false },
+        { label: "Social Proof Attached", hint: "Testimonials or case studies added.", done: false },
+        { label: "Interactive Demo Live", hint: "The 'Show' phase is ready for pilot.", done: false },
+      ],
+      takeaways: ["", "", ""],
+      cta: "",
+    }),
+  },
+  initiative_workshop: {
+    route: "initiative-workshop",
+    buildData: () => ({ what: "", why: "", how: "" }),
+  },
 };
 
 /**

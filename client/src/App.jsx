@@ -37,6 +37,10 @@ import PerformanceReview from "./pages/PerformanceReview";
 import CommunicationAudit from "./pages/CommunicationAudit";
 import PrepFramework from "./pages/PrepFramework";
 import StarFramework from "./pages/StarFramework";
+import BlufWorkshop from "./pages/BlufWorkshop";
+import SirWorkshop from "./pages/SirWorkshop";
+import TellShowTell from "./pages/TellShowTell";
+import InitiativeWorkshop from "./pages/InitiativeWorkshop";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -356,6 +360,38 @@ function App() {
           element={
             <ProtectedRoute>
               <StarFramework />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/bluf-workshop/:id"
+          element={
+            <ProtectedRoute>
+              <BlufWorkshop />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/decision-sir/:id"
+          element={
+            <ProtectedRoute>
+              <SirWorkshop />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/tell-show-tell/:id"
+          element={
+            <ProtectedRoute>
+              <TellShowTell />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/initiative-workshop/:id"
+          element={
+            <ProtectedRoute>
+              <InitiativeWorkshop />
             </ProtectedRoute>
           }
         />

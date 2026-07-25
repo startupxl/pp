@@ -40,6 +40,10 @@ const DOCUMENT_TYPES = [
   { type: "communication_audit", route: "communication-audit", label: "Communication Audit Dashboard" },
   { type: "prep_framework", route: "prep-framework", label: "PREP Framework Workspace" },
   { type: "star_framework", route: "star-framework", label: "STAR Framework Workspace" },
+  { type: "bluf_workshop", route: "bluf-workshop", label: "BLUF Workshop" },
+  { type: "decision_sir", route: "decision-sir", label: "Executive Decision SIR" },
+  { type: "tell_show_tell", route: "tell-show-tell", label: "Tell → Show → Tell Workshop" },
+  { type: "initiative_workshop", route: "initiative-workshop", label: "Initiative Workshop" },
 ];
 
 export default function Home() {
