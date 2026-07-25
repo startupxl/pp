@@ -135,6 +135,22 @@ const TOOL_CONFIG = {
     route: "project-workspace",
     buildData: () => ({ tasks: [] }),
   },
+  burn_rate: {
+    route: "burn-rate",
+    buildData: () => ({ cashBalance: 0, monthlyRevenue: 0, fixedCosts: [], variableCosts: [] }),
+  },
+  capacity_planning: {
+    route: "capacity-planning",
+    buildData: () => ({ members: [], projects: [] }),
+  },
+  skill_matrix: {
+    route: "skill-matrix",
+    buildData: () => ({ skills: ["Coding", "Design", "Strategy", "Ops", "Growth", "Data"], members: [] }),
+  },
+  unit_economics: {
+    route: "unit-economics",
+    buildData: () => ({ aov: 0, churnPct: 0, monthlySpend: 0, newCustomers: 0 }),
+  },
 };
 
 /**

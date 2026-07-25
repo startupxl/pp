@@ -372,6 +372,58 @@ export const frameworks = [
     isNew: true,
     tool: "project_workspace",
   },
+  {
+    id: 32,
+    name: "Burn Rate & Runway",
+    category: "Strategy",
+    complexity: "Intermediate",
+    readTime: "10 min read",
+    tag: "Financial Oversight",
+    description:
+      "Model cash balance, revenue, and cost line items to compute net burn, runway, and an optimization opportunity.",
+    workshop: true,
+    isNew: true,
+    tool: "burn_rate",
+  },
+  {
+    id: 33,
+    name: "Capacity Planning",
+    category: "Leadership",
+    complexity: "Intermediate",
+    readTime: "10 min read",
+    tag: "Resourcing",
+    description:
+      "Track team allocation against capacity to spot over-allocation and get rebalancing suggestions.",
+    workshop: true,
+    isNew: true,
+    tool: "capacity_planning",
+  },
+  {
+    id: 34,
+    name: "Skill Matrix Workshop",
+    category: "Leadership",
+    complexity: "Intermediate",
+    readTime: "10 min read",
+    tag: "Team Capability",
+    description:
+      "Map team proficiency across key skills to surface gaps and single-point-of-failure risks.",
+    workshop: true,
+    isNew: true,
+    tool: "skill_matrix",
+  },
+  {
+    id: 35,
+    name: "Unit Economics Workshop",
+    category: "Strategy",
+    complexity: "Intermediate",
+    readTime: "10 min read",
+    tag: "Growth Metrics",
+    description:
+      "Calculate LTV, CAC, and the LTV/CAC efficiency ratio with a live payback period projection.",
+    workshop: true,
+    isNew: true,
+    tool: "unit_economics",
+  },
 ];
 
 export const goals = [

@@ -26,6 +26,10 @@ import Retrospective from "./pages/Retrospective";
 import SprintPlanning from "./pages/SprintPlanning";
 import CriticalPath from "./pages/CriticalPath";
 import ProjectWorkspace from "./pages/ProjectWorkspace";
+import BurnRate from "./pages/BurnRate";
+import CapacityPlanning from "./pages/CapacityPlanning";
+import SkillMatrix from "./pages/SkillMatrix";
+import UnitEconomics from "./pages/UnitEconomics";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -257,6 +261,38 @@ function App() {
           element={
             <ProtectedRoute>
               <ProjectWorkspace />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/burn-rate/:id"
+          element={
+            <ProtectedRoute>
+              <BurnRate />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/capacity-planning/:id"
+          element={
+            <ProtectedRoute>
+              <CapacityPlanning />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/skill-matrix/:id"
+          element={
+            <ProtectedRoute>
+              <SkillMatrix />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/unit-economics/:id"
+          element={
+            <ProtectedRoute>
+              <UnitEconomics />
             </ProtectedRoute>
           }
         />

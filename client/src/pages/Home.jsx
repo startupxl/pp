@@ -29,6 +29,10 @@ const DOCUMENT_TYPES = [
   { type: "sprint_planning", route: "sprint-planning", label: "Sprint Planning Workshop" },
   { type: "critical_path", route: "critical-path", label: "Critical Path Analysis Workshop" },
   { type: "project_workspace", route: "project-workspace", label: "Project Workspace" },
+  { type: "burn_rate", route: "burn-rate", label: "Burn Rate & Runway" },
+  { type: "capacity_planning", route: "capacity-planning", label: "Capacity Planning" },
+  { type: "skill_matrix", route: "skill-matrix", label: "Skill Matrix Workshop" },
+  { type: "unit_economics", route: "unit-economics", label: "Unit Economics Workshop" },
 ];
 
 export default function Home() {
