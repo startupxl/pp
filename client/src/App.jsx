@@ -30,6 +30,13 @@ import BurnRate from "./pages/BurnRate";
 import CapacityPlanning from "./pages/CapacityPlanning";
 import SkillMatrix from "./pages/SkillMatrix";
 import UnitEconomics from "./pages/UnitEconomics";
+import ThreeSixtyFeedback from "./pages/ThreeSixtyFeedback";
+import CompetitiveBenchmarking from "./pages/CompetitiveBenchmarking";
+import MarketSizing from "./pages/MarketSizing";
+import PerformanceReview from "./pages/PerformanceReview";
+import CommunicationAudit from "./pages/CommunicationAudit";
+import PrepFramework from "./pages/PrepFramework";
+import StarFramework from "./pages/StarFramework";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -293,6 +300,62 @@ function App() {
           element={
             <ProtectedRoute>
               <UnitEconomics />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/360-feedback/:id"
+          element={
+            <ProtectedRoute>
+              <ThreeSixtyFeedback />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/competitive-benchmarking/:id"
+          element={
+            <ProtectedRoute>
+              <CompetitiveBenchmarking />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/market-sizing/:id"
+          element={
+            <ProtectedRoute>
+              <MarketSizing />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/performance-review/:id"
+          element={
+            <ProtectedRoute>
+              <PerformanceReview />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/communication-audit/:id"
+          element={
+            <ProtectedRoute>
+              <CommunicationAudit />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/prep-framework/:id"
+          element={
+            <ProtectedRoute>
+              <PrepFramework />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/star-framework/:id"
+          element={
+            <ProtectedRoute>
+              <StarFramework />
             </ProtectedRoute>
           }
         />

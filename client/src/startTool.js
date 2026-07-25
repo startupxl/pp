@@ -151,6 +151,73 @@ const TOOL_CONFIG = {
     route: "unit-economics",
     buildData: () => ({ aov: 0, churnPct: 0, monthlySpend: 0, newCustomers: 0 }),
   },
+  three_sixty_feedback: {
+    route: "360-feedback",
+    buildData: () => ({
+      competencies: [
+        { id: "c1", name: "Strategic Vision", score: 3.5 },
+        { id: "c2", name: "Operational Excellence", score: 3.5 },
+        { id: "c3", name: "Emotional Intelligence", score: 3.5 },
+        { id: "c4", name: "Team Development", score: 3.5 },
+      ],
+      johari: { open: [], blind: [], hidden: [] },
+      keepDoing: [],
+      startDoing: [],
+    }),
+  },
+  competitive_benchmarking: {
+    route: "competitive-benchmarking",
+    buildData: () => ({
+      us: "Us",
+      competitors: [{ id: "comp1", name: "Competitor A" }],
+      axes: [
+        { id: "pricing", label: "Pricing" },
+        { id: "speed", label: "Speed" },
+        { id: "depth", label: "Depth" },
+        { id: "security", label: "Security" },
+        { id: "support", label: "Support" },
+        { id: "ux", label: "UX" },
+      ],
+      scores: {},
+      features: [],
+    }),
+  },
+  market_sizing: {
+    route: "market-sizing",
+    buildData: () => ({ tam: 0, sam: 0, som: 0, notes: "" }),
+  },
+  performance_review: {
+    route: "performance-review",
+    buildData: () => ({
+      employeeName: "",
+      role: "",
+      reviewCycle: "",
+      manager: "",
+      competencies: [
+        { id: "execution", name: "Execution", rating: 3, notes: "" },
+        { id: "culture", name: "Culture", rating: 3, notes: "" },
+        { id: "strategy", name: "Strategy", rating: 3, notes: "" },
+        { id: "growth", name: "Growth", rating: 3, notes: "" },
+      ],
+      okrs: [],
+      developmentGoals: [],
+      strengths: "",
+      improvements: "",
+      managerNotes: "",
+    }),
+  },
+  communication_audit: {
+    route: "communication-audit",
+    buildData: () => ({ scores: { clarity: 50, tone: 50, conciseness: 50 }, redundantTerms: [], rewrites: [] }),
+  },
+  prep_framework: {
+    route: "prep-framework",
+    buildData: () => ({ point: "", reason: "", example: "", reinforcePoint: "" }),
+  },
+  star_framework: {
+    route: "star-framework",
+    buildData: () => ({ situation: "", task: "", action: "", result: "" }),
+  },
 };
 
 /**

@@ -33,6 +33,13 @@ const DOCUMENT_TYPES = [
   { type: "capacity_planning", route: "capacity-planning", label: "Capacity Planning" },
   { type: "skill_matrix", route: "skill-matrix", label: "Skill Matrix Workshop" },
   { type: "unit_economics", route: "unit-economics", label: "Unit Economics Workshop" },
+  { type: "three_sixty_feedback", route: "360-feedback", label: "360-Degree Feedback Workshop" },
+  { type: "competitive_benchmarking", route: "competitive-benchmarking", label: "Competitive Benchmarking" },
+  { type: "market_sizing", route: "market-sizing", label: "Market Sizing Workshop" },
+  { type: "performance_review", route: "performance-review", label: "Performance Review" },
+  { type: "communication_audit", route: "communication-audit", label: "Communication Audit Dashboard" },
+  { type: "prep_framework", route: "prep-framework", label: "PREP Framework Workspace" },
+  { type: "star_framework", route: "star-framework", label: "STAR Framework Workspace" },
 ];
 
 export default function Home() {
