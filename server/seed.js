@@ -268,6 +268,58 @@ export const frameworks = [
     isNew: true,
     tool: "vrio",
   },
+  {
+    id: 24,
+    name: "OKR Workshop",
+    category: "Leadership",
+    complexity: "Intermediate",
+    readTime: "10 min read",
+    tag: "Goal Setting",
+    description:
+      "Set an ambitious objective and track measurable key results with live confidence and progress tracking.",
+    workshop: true,
+    isNew: true,
+    tool: "okr",
+  },
+  {
+    id: 25,
+    name: "Product Roadmap Workshop",
+    category: "Leadership",
+    complexity: "Intermediate",
+    readTime: "12 min read",
+    tag: "Execution",
+    description:
+      "Plan milestones across a four-quarter horizon with category tags, progress tracking, and roadmap health insights.",
+    workshop: true,
+    isNew: true,
+    tool: "product_roadmap",
+  },
+  {
+    id: 26,
+    name: "Project Charter Workshop",
+    category: "Leadership",
+    complexity: "Intermediate",
+    readTime: "14 min read",
+    tag: "Project Initiation",
+    description:
+      "Define purpose, measurable objectives, milestones, success criteria, risks, and requirements for a new initiative.",
+    workshop: true,
+    isNew: true,
+    tool: "project_charter",
+  },
+  {
+    id: 27,
+    name: "RACI Matrix Workshop",
+    category: "Leadership",
+    complexity: "Intermediate",
+    readTime: "10 min read",
+    tag: "Responsibility Assignment",
+    description:
+      "Clarify who is Responsible, Accountable, Consulted, and Informed across your cross-functional team.",
+    workshop: true,
+    isNew: true,
+    tool: "raci",
+  },
 ];
 
 export const goals = [

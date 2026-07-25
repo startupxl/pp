@@ -18,6 +18,10 @@ import StrategicCascade from "./pages/StrategicCascade";
 import CoreCompetency from "./pages/CoreCompetency";
 import LeanCanvas from "./pages/LeanCanvas";
 import Vrio from "./pages/Vrio";
+import Okr from "./pages/Okr";
+import ProductRoadmap from "./pages/ProductRoadmap";
+import ProjectCharter from "./pages/ProjectCharter";
+import Raci from "./pages/Raci";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -185,6 +189,38 @@ function App() {
           element={
             <ProtectedRoute>
               <Vrio />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/okr/:id"
+          element={
+            <ProtectedRoute>
+              <Okr />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/product-roadmap/:id"
+          element={
+            <ProtectedRoute>
+              <ProductRoadmap />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/project-charter/:id"
+          element={
+            <ProtectedRoute>
+              <ProjectCharter />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/raci/:id"
+          element={
+            <ProtectedRoute>
+              <Raci />
             </ProtectedRoute>
           }
         />

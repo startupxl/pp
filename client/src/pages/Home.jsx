@@ -21,6 +21,10 @@ const DOCUMENT_TYPES = [
   { type: "core_competency", route: "core-competency", label: "Core Competency Auditor" },
   { type: "lean_canvas", route: "lean-canvas", label: "Lean Canvas Workshop" },
   { type: "vrio", route: "vrio", label: "VRIO Analysis Workshop" },
+  { type: "okr", route: "okr", label: "OKR Workshop" },
+  { type: "product_roadmap", route: "product-roadmap", label: "Product Roadmap Workshop" },
+  { type: "project_charter", route: "project-charter", label: "Project Charter Workshop" },
+  { type: "raci", route: "raci", label: "RACI Matrix Workshop" },
 ];
 
 export default function Home() {

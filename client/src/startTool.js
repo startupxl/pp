@@ -89,6 +89,36 @@ const TOOL_CONFIG = {
     route: "vrio",
     buildData: () => ({ resources: [] }),
   },
+  okr: {
+    route: "okr",
+    buildData: () => ({ objective: "", keyResults: [] }),
+  },
+  product_roadmap: {
+    route: "product-roadmap",
+    buildData: () => ({
+      quarters: [
+        { id: "q1", label: "Q1: Foundation", milestones: [] },
+        { id: "q2", label: "Q2: Scaling", milestones: [] },
+        { id: "q3", label: "Q3: Ecosystem", milestones: [] },
+        { id: "q4", label: "Q4: Intelligence", milestones: [] },
+      ],
+    }),
+  },
+  project_charter: {
+    route: "project-charter",
+    buildData: () => ({
+      purpose: "",
+      objectives: [],
+      milestones: [],
+      successCriteria: [],
+      risks: [],
+      requirements: [],
+    }),
+  },
+  raci: {
+    route: "raci",
+    buildData: () => ({ people: [], tasks: [] }),
+  },
 };
 
 /**
