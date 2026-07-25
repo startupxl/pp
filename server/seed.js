@@ -177,6 +177,58 @@ export const frameworks = [
     isNew: true,
     tool: "hypothesis",
   },
+  {
+    id: 17,
+    name: "GE McKinsey Matrix",
+    category: "Strategy",
+    complexity: "Advanced",
+    readTime: "14 min read",
+    tag: "Portfolio Analysis",
+    description:
+      "Plot business units on a 3x3 industry attractiveness vs. competitive strength grid to guide invest, hold, or divest decisions.",
+    workshop: true,
+    isNew: true,
+    tool: "ge_mckinsey",
+  },
+  {
+    id: 18,
+    name: "Three Horizons Framework",
+    category: "Strategy",
+    complexity: "Advanced",
+    readTime: "12 min read",
+    tag: "Portfolio Planning",
+    description:
+      "Balance current-core, emerging, and future-option initiatives on a value-vs-time map with target allocation tracking.",
+    workshop: true,
+    isNew: true,
+    tool: "three_horizons",
+  },
+  {
+    id: 19,
+    name: "Porter's Generic Strategies",
+    category: "Strategy",
+    complexity: "Intermediate",
+    readTime: "10 min read",
+    tag: "Competitive Strategy",
+    description:
+      "Define your strategic scope and advantage — Cost Leadership, Differentiation, or a Focused variant — and benchmark competitors.",
+    workshop: true,
+    isNew: true,
+    tool: "porter",
+  },
+  {
+    id: 20,
+    name: "Strategic Choice Cascade",
+    category: "Strategy",
+    complexity: "Advanced",
+    readTime: "16 min read",
+    tag: "Playing to Win",
+    description:
+      "Work through Lafley & Martin's five cascading strategy choices, from Winning Aspiration down to Management Systems.",
+    workshop: true,
+    isNew: true,
+    tool: "strategic_cascade",
+  },
 ];
 
 export const goals = [

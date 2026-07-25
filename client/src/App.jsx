@@ -11,6 +11,10 @@ import LogicTree from "./pages/LogicTree";
 import SystemsThinking from "./pages/SystemsThinking";
 import FirstPrinciples from "./pages/FirstPrinciples";
 import Hypothesis from "./pages/Hypothesis";
+import GeMcKinsey from "./pages/GeMcKinsey";
+import ThreeHorizons from "./pages/ThreeHorizons";
+import Porter from "./pages/Porter";
+import StrategicCascade from "./pages/StrategicCascade";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -122,6 +126,38 @@ function App() {
           element={
             <ProtectedRoute>
               <Hypothesis />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/ge-mckinsey/:id"
+          element={
+            <ProtectedRoute>
+              <GeMcKinsey />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/three-horizons/:id"
+          element={
+            <ProtectedRoute>
+              <ThreeHorizons />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/porter/:id"
+          element={
+            <ProtectedRoute>
+              <Porter />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/strategic-cascade/:id"
+          element={
+            <ProtectedRoute>
+              <StrategicCascade />
             </ProtectedRoute>
           }
         />

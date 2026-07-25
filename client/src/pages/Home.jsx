@@ -14,6 +14,10 @@ const DOCUMENT_TYPES = [
   { type: "systems_thinking", route: "systems-thinking", label: "Systems Thinking" },
   { type: "first_principles", route: "first-principles", label: "First Principles" },
   { type: "hypothesis", route: "hypothesis", label: "Hypothesis Workspace" },
+  { type: "ge_mckinsey", route: "ge-mckinsey", label: "GE McKinsey Matrix" },
+  { type: "three_horizons", route: "three-horizons", label: "Three Horizons" },
+  { type: "porter", route: "porter", label: "Porter's Generic Strategies" },
+  { type: "strategic_cascade", route: "strategic-cascade", label: "Strategic Choice Cascade" },
 ];
 
 export default function Home() {

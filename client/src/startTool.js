@@ -59,6 +59,24 @@ const TOOL_CONFIG = {
       evidence: [],
     }),
   },
+  ge_mckinsey: {
+    route: "ge-mckinsey",
+    buildData: () => ({
+      bubbles: [{ id: "b1", name: "Core Product", revenue: 1000, x: 25, y: 25 }],
+    }),
+  },
+  three_horizons: {
+    route: "three-horizons",
+    buildData: () => ({ initiatives: [] }),
+  },
+  porter: {
+    route: "porter",
+    buildData: () => ({ quadrants: {}, competitors: [] }),
+  },
+  strategic_cascade: {
+    route: "strategic-cascade",
+    buildData: () => ({ steps: {} }),
+  },
 };
 
 /**
