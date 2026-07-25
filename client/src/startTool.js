@@ -258,6 +258,64 @@ const TOOL_CONFIG = {
     route: "initiative-workshop",
     buildData: () => ({ what: "", why: "", how: "" }),
   },
+  cash_flow_projection: {
+    route: "cash-flow-projection",
+    buildData: () => ({
+      startingBalance: 24500,
+      months: [
+        { id: "m1", label: "Aug", inflow: 14500, outflow: 11200, forecast: false },
+        { id: "m2", label: "Sep", inflow: 12000, outflow: 13400, forecast: false },
+        { id: "m3", label: "Oct", inflow: 9000, outflow: 22000, forecast: false },
+        { id: "m4", label: "Nov", inflow: 15000, outflow: 10500, forecast: true },
+      ],
+      lowCashThreshold: 5000,
+      paymentDelayDays: 0,
+      costIncreasePct: 0,
+    }),
+  },
+  empathy_map: {
+    route: "empathy-map",
+    buildData: () => ({ personaName: "", says: [], does: [], thinks: [], feels: [], pains: [], gains: [] }),
+  },
+  jtbd_workshop: {
+    route: "jtbd-workshop",
+    buildData: () => ({ jobStories: [], functionalJobs: [], emotionalJobs: [], socialJobs: [], opportunities: [] }),
+  },
+  pl_forecasting: {
+    route: "pl-forecasting",
+    buildData: () => ({
+      revenueLines: [{ id: "r1", label: "SaaS Subscriptions", amount: 42000 }],
+      expenseLines: [{ id: "e1", label: "Staffing Costs", amount: 22000 }],
+      scenario: "moderate",
+      targetMargin: 22,
+    }),
+  },
+  customer_journey: {
+    route: "customer-journey",
+    buildData: () => ({
+      stages: [
+        { id: "awareness", name: "Awareness", subtitle: "Problem Recognition", actions: [], feelings: "", touchpoints: [], friction: 20 },
+        { id: "consideration", name: "Consideration", subtitle: "Solution Research", actions: [], feelings: "", touchpoints: [], friction: 30 },
+        { id: "purchase", name: "Purchase", subtitle: "Decision & Buy-in", actions: [], feelings: "", touchpoints: [], friction: 25 },
+        { id: "onboarding", name: "Onboarding", subtitle: "First Value Trip", actions: [], feelings: "", touchpoints: [], friction: 15 },
+        { id: "retention", name: "Retention", subtitle: "Loyal Advocate", actions: [], feelings: "", touchpoints: [], friction: 10 },
+      ],
+    }),
+  },
+  user_persona: {
+    route: "user-persona",
+    buildData: () => ({
+      name: "",
+      role: "",
+      ageRange: "",
+      location: "",
+      keyConcern: "",
+      motivations: [],
+      dayInLife: [],
+      painPoints: [],
+      quote: "",
+    }),
+  },
 };
 
 /**

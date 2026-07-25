@@ -41,6 +41,12 @@ import BlufWorkshop from "./pages/BlufWorkshop";
 import SirWorkshop from "./pages/SirWorkshop";
 import TellShowTell from "./pages/TellShowTell";
 import InitiativeWorkshop from "./pages/InitiativeWorkshop";
+import CashFlowProjection from "./pages/CashFlowProjection";
+import EmpathyMap from "./pages/EmpathyMap";
+import JtbdWorkshop from "./pages/JtbdWorkshop";
+import PlForecasting from "./pages/PlForecasting";
+import CustomerJourney from "./pages/CustomerJourney";
+import UserPersona from "./pages/UserPersona";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -392,6 +398,54 @@ function App() {
           element={
             <ProtectedRoute>
               <InitiativeWorkshop />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/cash-flow-projection/:id"
+          element={
+            <ProtectedRoute>
+              <CashFlowProjection />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/empathy-map/:id"
+          element={
+            <ProtectedRoute>
+              <EmpathyMap />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/jtbd-workshop/:id"
+          element={
+            <ProtectedRoute>
+              <JtbdWorkshop />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/pl-forecasting/:id"
+          element={
+            <ProtectedRoute>
+              <PlForecasting />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/customer-journey/:id"
+          element={
+            <ProtectedRoute>
+              <CustomerJourney />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/user-persona/:id"
+          element={
+            <ProtectedRoute>
+              <UserPersona />
             </ProtectedRoute>
           }
         />

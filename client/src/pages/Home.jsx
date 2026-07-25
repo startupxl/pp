@@ -44,6 +44,12 @@ const DOCUMENT_TYPES = [
   { type: "decision_sir", route: "decision-sir", label: "Executive Decision SIR" },
   { type: "tell_show_tell", route: "tell-show-tell", label: "Tell → Show → Tell Workshop" },
   { type: "initiative_workshop", route: "initiative-workshop", label: "Initiative Workshop" },
+  { type: "cash_flow_projection", route: "cash-flow-projection", label: "Cash Flow Projection" },
+  { type: "empathy_map", route: "empathy-map", label: "Empathy Map Workshop" },
+  { type: "jtbd_workshop", route: "jtbd-workshop", label: "JTBD Workshop" },
+  { type: "pl_forecasting", route: "pl-forecasting", label: "P&L Forecasting" },
+  { type: "customer_journey", route: "customer-journey", label: "Customer Journey Workspace" },
+  { type: "user_persona", route: "user-persona", label: "User Persona Workshop" },
 ];
 
 export default function Home() {
