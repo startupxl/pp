@@ -229,6 +229,45 @@ export const frameworks = [
     isNew: true,
     tool: "strategic_cascade",
   },
+  {
+    id: 21,
+    name: "Core Competency Auditor",
+    category: "Strategy",
+    complexity: "Intermediate",
+    readTime: "10 min read",
+    tag: "Competitive Advantage",
+    description:
+      "Audit your capabilities against the Valuable, Unique, and Extendable test to find your true competitive moat.",
+    workshop: true,
+    isNew: true,
+    tool: "core_competency",
+  },
+  {
+    id: 22,
+    name: "Lean Canvas Workshop",
+    category: "Strategy",
+    complexity: "Beginner",
+    readTime: "10 min read",
+    tag: "Business Model",
+    description:
+      "Sketch your business model across all nine Lean Canvas blocks, from Problem and Solution to Cost Structure and Revenue Streams.",
+    workshop: true,
+    isNew: true,
+    tool: "lean_canvas",
+  },
+  {
+    id: 23,
+    name: "VRIO Analysis Workshop",
+    category: "Strategy",
+    complexity: "Advanced",
+    readTime: "12 min read",
+    tag: "Resource-Based View",
+    description:
+      "Test resources against Valuable, Rare, Inimitable, and Organized hurdles to determine sustained competitive advantage.",
+    workshop: true,
+    isNew: true,
+    tool: "vrio",
+  },
 ];
 
 export const goals = [

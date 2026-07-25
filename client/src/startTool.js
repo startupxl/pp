@@ -77,6 +77,18 @@ const TOOL_CONFIG = {
     route: "strategic-cascade",
     buildData: () => ({ steps: {} }),
   },
+  core_competency: {
+    route: "core-competency",
+    buildData: () => ({ competencies: [], notes: "", tags: [] }),
+  },
+  lean_canvas: {
+    route: "lean-canvas",
+    buildData: () => ({}), // Lean Canvas page fills in sensible defaults itself
+  },
+  vrio: {
+    route: "vrio",
+    buildData: () => ({ resources: [] }),
+  },
 };
 
 /**

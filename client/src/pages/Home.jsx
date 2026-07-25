@@ -18,6 +18,9 @@ const DOCUMENT_TYPES = [
   { type: "three_horizons", route: "three-horizons", label: "Three Horizons" },
   { type: "porter", route: "porter", label: "Porter's Generic Strategies" },
   { type: "strategic_cascade", route: "strategic-cascade", label: "Strategic Choice Cascade" },
+  { type: "core_competency", route: "core-competency", label: "Core Competency Auditor" },
+  { type: "lean_canvas", route: "lean-canvas", label: "Lean Canvas Workshop" },
+  { type: "vrio", route: "vrio", label: "VRIO Analysis Workshop" },
 ];
 
 export default function Home() {

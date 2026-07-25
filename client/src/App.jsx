@@ -15,6 +15,9 @@ import GeMcKinsey from "./pages/GeMcKinsey";
 import ThreeHorizons from "./pages/ThreeHorizons";
 import Porter from "./pages/Porter";
 import StrategicCascade from "./pages/StrategicCascade";
+import CoreCompetency from "./pages/CoreCompetency";
+import LeanCanvas from "./pages/LeanCanvas";
+import Vrio from "./pages/Vrio";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -158,6 +161,30 @@ function App() {
           element={
             <ProtectedRoute>
               <StrategicCascade />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/core-competency/:id"
+          element={
+            <ProtectedRoute>
+              <CoreCompetency />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/lean-canvas/:id"
+          element={
+            <ProtectedRoute>
+              <LeanCanvas />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/vrio/:id"
+          element={
+            <ProtectedRoute>
+              <Vrio />
             </ProtectedRoute>
           }
         />
