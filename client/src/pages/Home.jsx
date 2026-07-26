@@ -70,6 +70,8 @@ const DOCUMENT_TYPES = [
   { type: "team_capacity_heatmap", route: "team-capacity-heatmap", label: "Team Capacity Heatmap" },
   { type: "compliance_hub", route: "compliance-hub", label: "Legal & Compliance Hub" },
   { type: "product_analytics", route: "product-analytics", label: "Product Analytics Dashboard" },
+  { type: "innovation_sandbox", route: "innovation-sandbox", label: "Innovation Sandbox" },
+  { type: "investor_relations", route: "investor-relations", label: "Investor Relations Hub" },
 ];
 
 export default function Home() {

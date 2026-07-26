@@ -498,6 +498,55 @@ const TOOL_CONFIG = {
       features: [],
     }),
   },
+  innovation_sandbox: {
+    route: "innovation-sandbox",
+    buildData: () => ({
+      hypotheses: [
+        { id: "h1", title: "Usage-based pricing tier for SMB segment", category: "SaaS / Pricing", stage: "testing", score: 8.4, note: "Early interviews show strong willingness-to-pay signal among 20-50 seat teams." },
+        { id: "h2", title: "AI co-pilot for onboarding flow", category: "Product / AI", stage: "testing", score: 7.1, note: "Prototype reduced time-to-first-value in 6 of 9 usability sessions." },
+        { id: "h3", title: "Vertical package for fintech compliance teams", category: "SaaS / Fintech", stage: "testing", score: 6.5, note: "Two design partners lined up; regulatory scope still being defined." },
+      ],
+      promoted: [
+        { id: "p1", title: "Self-serve trial-to-paid flow", status: "Q4 Start" },
+        { id: "p2", title: "Slack-native notifications", status: "In Design" },
+      ],
+      graveyard: [
+        { id: "g1", title: "Marketplace for third-party plugins", reason: "Market Saturation", date: "Sep 2026" },
+        { id: "g2", title: "Native mobile app", reason: "High Tech Friction", date: "Aug 2026" },
+      ],
+      researchSnippets: [
+        { id: "r1", quote: "I'd pay more if I only got billed for the seats my team actually uses.", source: "Customer interview, SMB segment" },
+        { id: "r2", quote: "Onboarding took us three weeks longer than we expected — nobody walked us through it.", source: "Churn exit interview" },
+      ],
+    }),
+  },
+  investor_relations: {
+    route: "investor-relations",
+    buildData: () => ({
+      runwayMonths: 18.4,
+      capTable: [
+        { id: "c1", holder: "Founders", pct: 52.4 },
+        { id: "c2", holder: "Lead Investors", pct: 28.1 },
+        { id: "c3", holder: "Angel Syndicate", pct: 11.5 },
+        { id: "c4", holder: "ESOP Pool", pct: 8.0 },
+      ],
+      updateSections: [
+        { id: "u1", name: "Executive Summary", note: "Auto-generated from high-level milestones", done: true },
+        { id: "u2", name: "Key Metrics & KPIs", note: "Active users, MRR, Churn (synced)", done: true },
+        { id: "u3", name: "The Ask", note: "Where you need investor help", done: false },
+      ],
+      documents: [
+        { id: "d1", name: "Series A Term Sheet", type: "pdf" },
+        { id: "d2", name: "Articles of Incorporation", type: "doc" },
+        { id: "d3", name: "Q3 Board Deck - Final", type: "slides" },
+        { id: "d4", name: "Consolidated Financials FY24", type: "sheet" },
+      ],
+      activity: [
+        { id: "a1", name: "Sarah Chen", org: "Blue Chip Ventures", action: "Accessed Vault: Series A Deck", date: "Oct 12, 2026", status: "Verified" },
+        { id: "a2", name: "Marcus Bloom", org: "Bloom Angels", action: "Signed: Consent for Board Action", date: "Oct 10, 2026", status: "Signed" },
+      ],
+    }),
+  },
 };
 
 /**

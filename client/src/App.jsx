@@ -67,6 +67,8 @@ import SalesPipeline from "./pages/SalesPipeline";
 import TeamCapacityHeatmap from "./pages/TeamCapacityHeatmap";
 import ComplianceHub from "./pages/ComplianceHub";
 import ProductAnalytics from "./pages/ProductAnalytics";
+import InnovationSandbox from "./pages/InnovationSandbox";
+import InvestorRelations from "./pages/InvestorRelations";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -626,6 +628,22 @@ function App() {
           element={
             <ProtectedRoute>
               <ProductAnalytics />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/innovation-sandbox/:id"
+          element={
+            <ProtectedRoute>
+              <InnovationSandbox />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/investor-relations/:id"
+          element={
+            <ProtectedRoute>
+              <InvestorRelations />
             </ProtectedRoute>
           }
         />

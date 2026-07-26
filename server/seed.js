@@ -905,6 +905,32 @@ export const frameworks = [
     isNew: true,
     tool: "product_analytics",
   },
+  {
+    id: 73,
+    name: "Innovation Sandbox",
+    category: "Strategy",
+    complexity: "Intermediate",
+    readTime: "8 min read",
+    tag: "Idea Portfolio",
+    description:
+      "Track product hypotheses through validation scoring, promote winners to the roadmap, and retire dead ends in the framework graveyard.",
+    workshop: true,
+    isNew: true,
+    tool: "innovation_sandbox",
+  },
+  {
+    id: 74,
+    name: "Investor Relations Hub",
+    category: "Finance",
+    complexity: "Advanced",
+    readTime: "9 min read",
+    tag: "Fundraising",
+    description:
+      "Manage cap table ownership, build monthly investor updates, maintain a secure document vault, and track stakeholder activity.",
+    workshop: true,
+    isNew: true,
+    tool: "investor_relations",
+  },
 ];
 
 export const goals = [
