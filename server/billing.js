@@ -147,10 +147,33 @@ router.post("/webhook", async (req, res, next) => {
           currentPeriodEnd: resource.billing_info?.next_billing_time || null,
         });
         break;
+      case "BILLING.SUBSCRIPTION.RE-ACTIVATED":
+        await store.upsertSubscription(userId, {
+          status: "active",
+          paypalSubscriptionId,
+          currentPeriodEnd: resource.billing_info?.next_billing_time || null,
+        });
+        break;
       case "BILLING.SUBSCRIPTION.UPDATED":
         await store.upsertSubscription(userId, {
           currentPeriodEnd: resource.billing_info?.next_billing_time || null,
         });
+        break;
+      case "BILLING.SUBSCRIPTION.CREATED":
+        // Already recorded as "pending" by POST /subscribe before the user
+        // even reaches PayPal's approval page — nothing to do here, but
+        // handle it defensively in case the webhook ever arrives first.
+        await store.upsertSubscription(userId, {
+          status: sub?.status || "pending",
+          paypalSubscriptionId,
+          paypalPlanId: resource.plan_id || sub?.paypalPlanId || null,
+        });
+        break;
+      case "BILLING.SUBSCRIPTION.PAYMENT.FAILED":
+        // Don't downgrade on the first failed charge — PayPal retries
+        // automatically per its own dunning schedule and will send
+        // SUSPENDED or CANCELLED if it ultimately gives up. Just log it.
+        console.warn(`PayPal payment failed for subscription ${paypalSubscriptionId} (user ${userId})`);
         break;
       case "BILLING.SUBSCRIPTION.CANCELLED":
       case "BILLING.SUBSCRIPTION.EXPIRED":
