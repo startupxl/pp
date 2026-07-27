@@ -162,3 +162,87 @@ export async function deleteDocument(id, userId) {
   writeDB(db);
   return db.documents.length < before;
 }
+
+// ---------- Subscriptions (one row per user; missing row = free plan) ----------
+export async function getSubscription(userId) {
+  const db = readDB();
+  return db.subscriptions.find((s) => s.userId === userId) || null;
+}
+
+export async function getSubscriptionByPaypalId(paypalSubscriptionId) {
+  const db = readDB();
+  return db.subscriptions.find((s) => s.paypalSubscriptionId === paypalSubscriptionId) || null;
+}
+
+export async function upsertSubscription(userId, patch) {
+  const db = readDB();
+  const now = new Date().toISOString();
+  let sub = db.subscriptions.find((s) => s.userId === userId);
+  if (!sub) {
+    sub = {
+      userId,
+      plan: "free",
+      status: "active",
+      seats: 1,
+      paypalSubscriptionId: null,
+      paypalPlanId: null,
+      currentPeriodEnd: null,
+      createdAt: now,
+    };
+    db.subscriptions.push(sub);
+  }
+  Object.assign(sub, patch, { updatedAt: now });
+  writeDB(db);
+  return sub;
+}
+
+// ---------- AI usage (per user, per calendar-month period "YYYY-MM") ----------
+export async function getUsage(userId, period) {
+  const db = readDB();
+  return (
+    db.aiUsage.find((u) => u.userId === userId && u.period === period) || {
+      userId,
+      period,
+      used: 0,
+      addonBalance: 0,
+    }
+  );
+}
+
+export async function incrementUsage(userId, period, amount = 1) {
+  const db = readDB();
+  let row = db.aiUsage.find((u) => u.userId === userId && u.period === period);
+  if (!row) {
+    row = { userId, period, used: 0, addonBalance: 0 };
+    db.aiUsage.push(row);
+  }
+  row.used += amount;
+  writeDB(db);
+  return row;
+}
+
+export async function addAddonActions(userId, period, amount) {
+  const db = readDB();
+  let row = db.aiUsage.find((u) => u.userId === userId && u.period === period);
+  if (!row) {
+    row = { userId, period, used: 0, addonBalance: 0 };
+    db.aiUsage.push(row);
+  }
+  row.addonBalance += amount;
+  writeDB(db);
+  return row;
+}
+
+export async function logAIUsage({ userId, feature, tool, tokensIn, tokensOut }) {
+  const db = readDB();
+  db.aiUsageLog.push({
+    id: nextId(db.aiUsageLog),
+    userId,
+    feature,
+    tool: tool || null,
+    tokensIn: tokensIn || null,
+    tokensOut: tokensOut || null,
+    createdAt: new Date().toISOString(),
+  });
+  writeDB(db);
+}

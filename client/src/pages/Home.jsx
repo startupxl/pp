@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import Icon from "../components/Icon";
 import FrameworkGuide from "../components/FrameworkGuide";
@@ -136,6 +136,11 @@ export default function Home() {
   const navigate = useNavigate();
   const [goals, setGoals] = useState([]);
   const [selectedChallenge, setSelectedChallenge] = useState(null);
+  const [aiSituation, setAiSituation] = useState("");
+  const [aiRecs, setAiRecs] = useState(null);
+  const [aiBusy, setAiBusy] = useState(false);
+  const [aiError, setAiError] = useState("");
+  const [aiQuotaExceeded, setAiQuotaExceeded] = useState(false);
   const [frameworks, setFrameworks] = useState([]);
   const [sessions, setSessions] = useState([]);
   const [documents, setDocuments] = useState([]);
@@ -163,6 +168,23 @@ export default function Home() {
 
   const featured = frameworks.find((f) => f.featured) || frameworks[0];
   const others = frameworks.filter((f) => f !== featured).slice(0, 2);
+
+  async function askAIForRecommendation() {
+    if (!aiSituation.trim() || aiBusy) return;
+    setAiBusy(true);
+    setAiError("");
+    setAiQuotaExceeded(false);
+    try {
+      const res = await api.aiRecommend({ situation: aiSituation.trim() });
+      setAiRecs(res.recommendations);
+      setSelectedChallenge(null);
+    } catch (err) {
+      if (err.status === 402) setAiQuotaExceeded(true);
+      else setAiError(err.message || "Could not get a recommendation.");
+    } finally {
+      setAiBusy(false);
+    }
+  }
 
   async function startNewSession(frameworkId) {
     const framework = frameworks.find((f) => f.id === frameworkId) || featured;
@@ -283,6 +305,68 @@ export default function Home() {
               </div>
             </div>
           )}
+
+          <div className="mt-6 pt-6 border-t border-outline-variant">
+            <div className="flex items-center gap-2 mb-2">
+              <Icon name="auto_awesome" className="text-secondary text-[18px]" />
+              <h3 className="font-bold text-primary text-sm">
+                Not sure which category fits? Describe it and ask the AI coach
+              </h3>
+            </div>
+            <div className="flex gap-2">
+              <input
+                value={aiSituation}
+                onChange={(e) => setAiSituation(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && askAIForRecommendation()}
+                placeholder="e.g. Our biggest competitor just cut prices 20% and I need a response by Friday"
+                className="flex-1 text-sm border border-outline-variant rounded-lg px-3 py-2.5 outline-none focus:border-secondary"
+                disabled={aiBusy}
+              />
+              <button
+                onClick={askAIForRecommendation}
+                disabled={aiBusy || !aiSituation.trim()}
+                className="px-4 py-2.5 bg-secondary text-white rounded-lg text-sm font-semibold disabled:opacity-50"
+              >
+                {aiBusy ? "Thinking…" : "Ask AI"}
+              </button>
+            </div>
+            {aiQuotaExceeded && (
+              <p className="text-xs text-error mt-2">
+                You've used this month's AI-assist allowance.{" "}
+                <Link to="/billing" className="font-semibold underline">
+                  Upgrade your plan
+                </Link>{" "}
+                for more.
+              </p>
+            )}
+            {aiError && !aiQuotaExceeded && <p className="text-xs text-error mt-2">{aiError}</p>}
+            {aiRecs && (
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+                {aiRecs.length === 0 && (
+                  <p className="text-sm text-on-surface-variant italic">
+                    No confident match — try describing your situation with a bit more detail.
+                  </p>
+                )}
+                {aiRecs.map((r) => {
+                  const f = frameworks.find((fw) => fw.tool === r.tool);
+                  if (!f) return null;
+                  return (
+                    <div key={r.tool} className="border border-secondary/30 rounded-xl p-5 flex flex-col bg-secondary-container/10">
+                      <span className="text-xs font-semibold uppercase text-secondary mb-2">{f.category}</span>
+                      <div className="font-bold mb-2">{f.name}</div>
+                      <p className="text-sm text-on-surface-variant flex-1 mb-3">{r.why}</p>
+                      <button
+                        onClick={() => startNewSession(f.id)}
+                        className="self-start bg-primary text-white text-xs font-semibold px-3 py-1.5 rounded-md hover:opacity-90"
+                      >
+                        Start Workshop
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="flex items-center justify-between mb-4">

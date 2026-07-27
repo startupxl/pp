@@ -8,6 +8,8 @@ import * as store from "./store.js";
 import { goals as seedGoals } from "./seed.js";
 import { generateSwot } from "./analysisEngine.js";
 import { requireAuth } from "./auth.js";
+import aiRouter from "./ai.js";
+import billingRouter from "./billing.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CLIENT_DIST = path.join(__dirname, "..", "client", "dist");
@@ -191,6 +193,12 @@ app.delete(
     res.status(204).end();
   })
 );
+
+// ---------- AI-assist (draft, coach, narrative, recommend) ----------
+app.use("/api/ai", aiRouter);
+
+// ---------- Billing (PayPal subscriptions) ----------
+app.use("/api/billing", billingRouter);
 
 // ---------- Serve the built React app (production) ----------
 // In local dev, Vite runs its own server on :5173 and proxies /api here, so this

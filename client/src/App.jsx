@@ -74,6 +74,7 @@ import FiveWhys from "./pages/FiveWhys";
 import EisenhowerMatrix from "./pages/EisenhowerMatrix";
 import PorterFiveForces from "./pages/PorterFiveForces";
 import HeroJourney from "./pages/HeroJourney";
+import Billing from "./pages/Billing";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -97,6 +98,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Library />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/billing"
+          element={
+            <ProtectedRoute>
+              <Billing />
             </ProtectedRoute>
           }
         />

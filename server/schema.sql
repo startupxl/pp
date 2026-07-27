@@ -60,3 +60,44 @@ CREATE TABLE IF NOT EXISTS tool_documents (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   INDEX idx_documents_user_type (user_id, type)
 );
+
+-- One row per user, tracking their current plan and (if paid) the linked
+-- PayPal subscription. Users with no row default to the "free" plan in
+-- application code — a row is only created here once they interact with
+-- billing (subscribe, or an admin/manual override).
+CREATE TABLE IF NOT EXISTS subscriptions (
+  user_id VARCHAR(128) PRIMARY KEY,
+  plan VARCHAR(20) NOT NULL DEFAULT 'free',
+  status VARCHAR(20) NOT NULL DEFAULT 'active',
+  seats INT NOT NULL DEFAULT 1,
+  paypal_subscription_id VARCHAR(64),
+  paypal_plan_id VARCHAR(64),
+  current_period_end TIMESTAMP NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_subscriptions_paypal (paypal_subscription_id)
+);
+
+-- Monthly AI-assist usage counter per user. `period` is a YYYY-MM string so
+-- allowances reset naturally each billing month without a cron job.
+CREATE TABLE IF NOT EXISTS ai_usage (
+  user_id VARCHAR(128) NOT NULL,
+  period VARCHAR(7) NOT NULL,
+  used INT NOT NULL DEFAULT 0,
+  addon_balance INT NOT NULL DEFAULT 0,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (user_id, period)
+);
+
+-- Lightweight audit trail of individual AI-assist calls, for cost/usage
+-- analysis later. Not read by the app today — write-only.
+CREATE TABLE IF NOT EXISTS ai_usage_log (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id VARCHAR(128) NOT NULL,
+  feature VARCHAR(20) NOT NULL,
+  tool VARCHAR(30),
+  tokens_in INT,
+  tokens_out INT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_ai_usage_log_user (user_id)
+);

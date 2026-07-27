@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Layout from "../components/Layout";
 import Icon from "../components/Icon";
 import FrameworkGuide from "../components/FrameworkGuide";
+import AIAssistPanel from "../components/AIAssistPanel";
 import { api } from "../api";
 
 function defaultData() {
@@ -94,6 +95,13 @@ export default function PorterFiveForces() {
         </div>
         <p className="text-sm text-on-surface-variant mb-4 max-w-2xl">Rate the pressure each competitive force puts on your industry's profitability. Higher pressure across the board means a less attractive market.</p>
         <FrameworkGuide toolKey="porter_five_forces" className="mb-6 max-w-2xl" />
+        <AIAssistPanel
+          toolKey="porter_five_forces"
+          frameworkName="Porter's Five Forces"
+          documentData={data}
+          documentTitle={title}
+          className="mb-6 max-w-2xl"
+        />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <div className="bg-white rounded-xl border border-outline-variant shadow-sm p-5">

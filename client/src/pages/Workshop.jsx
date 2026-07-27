@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Layout from "../components/Layout";
 import Icon from "../components/Icon";
+import AIAssistPanel from "../components/AIAssistPanel";
 import { api } from "../api";
 
 const STEPS = [
@@ -258,6 +259,14 @@ export default function Workshop() {
             )}
           </div>
         </div>
+
+        <AIAssistPanel
+          toolKey="swot"
+          frameworkName="SWOT Analysis"
+          documentData={analysis ? { contextText, quadrants: analysis.quadrants } : null}
+          documentTitle={session.title}
+          className="mt-6 max-w-3xl"
+        />
       </div>
     </Layout>
   );

@@ -64,6 +64,13 @@ Add these under the app's **Environment Variables** section in hPanel:
 | `DB_USER` | your MySQL database username | MySQL connection |
 | `DB_PASSWORD` | your MySQL database password | MySQL connection |
 | `DB_NAME` | your MySQL database name | MySQL connection |
+| `APP_URL` | e.g. `https://app.principlepitch.com` | Used to build PayPal return/cancel redirect URLs |
+| `OPENAI_API_KEY` | your OpenAI API key | Powers AI-assist (draft content, coach, narrative, recommendations). Without it, those endpoints return a clean 503 — nothing else breaks. |
+| `OPENAI_MODEL` | `gpt-4o-mini` (default if unset) | Model used for all AI-assist calls |
+| `PAYPAL_ENV` | `sandbox` or `live` | Test against sandbox first |
+| `PAYPAL_CLIENT_ID` / `PAYPAL_CLIENT_SECRET` | from your PayPal Business app | Subscription billing |
+| `PAYPAL_PLAN_ID_PRO` / `PAYPAL_PLAN_ID_TEAM` | Plan IDs from PayPal's Subscriptions dashboard | One PayPal Product + Plan per paid tier — create these yourself in the PayPal dashboard, the app doesn't create them for you |
+| `PAYPAL_WEBHOOK_ID` | from the webhook you register at `https://<your-domain>/api/billing/webhook` | Required for the app to trust renewal/cancellation events from PayPal |
 
 The app auto-detects which data store to use: if `DB_HOST`, `DB_USER`, and `DB_NAME` are
 all set, it uses MySQL; otherwise it falls back to the local JSON file (useful for local

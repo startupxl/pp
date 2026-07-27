@@ -32,4 +32,11 @@ export const {
   getDocument,
   updateDocument,
   deleteDocument,
+  getSubscription,
+  getSubscriptionByPaypalId,
+  upsertSubscription,
+  getUsage,
+  incrementUsage,
+  addAddonActions,
+  logAIUsage,
 } = impl;

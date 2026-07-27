@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Layout from "../components/Layout";
 import Icon from "../components/Icon";
 import FrameworkGuide from "../components/FrameworkGuide";
+import AIAssistPanel from "../components/AIAssistPanel";
 import { api } from "../api";
 
 function defaultData() {
@@ -89,6 +90,13 @@ export default function FiveWhys() {
         </div>
         <p className="text-sm text-on-surface-variant mb-4">Start with the problem, then ask "why" repeatedly — each answer becomes the subject of the next question — until you reach a root cause you can act on.</p>
         <FrameworkGuide toolKey="five_whys" className="mb-6" />
+        <AIAssistPanel
+          toolKey="five_whys"
+          frameworkName="5 Whys"
+          documentData={data}
+          documentTitle={title}
+          className="mb-6"
+        />
 
         <div className="bg-white rounded-2xl border border-outline-variant shadow-sm p-6 mb-6">
           <label className="text-xs font-bold uppercase text-on-surface-variant tracking-wider">Problem Statement</label>

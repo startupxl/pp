@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Layout from "../components/Layout";
 import Icon from "../components/Icon";
 import FrameworkGuide from "../components/FrameworkGuide";
+import AIAssistPanel from "../components/AIAssistPanel";
 import { api } from "../api";
 
 function defaultData() {
@@ -105,6 +106,13 @@ export default function CynefinFramework() {
         </div>
         <p className="text-sm text-on-surface-variant mb-4 max-w-2xl">Sort each situation into the domain that best matches how well its cause and effect are understood, then apply the matching response mode.</p>
         <FrameworkGuide toolKey="cynefin_framework" className="mb-6 max-w-2xl" />
+        <AIAssistPanel
+          toolKey="cynefin_framework"
+          frameworkName="Cynefin Framework"
+          documentData={data}
+          documentTitle={title}
+          className="mb-6 max-w-2xl"
+        />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
           {Object.entries(DOMAINS).map(([key, d]) => (

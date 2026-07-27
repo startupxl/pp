@@ -14,6 +14,9 @@ function defaultData() {
     sessions: [],
     analyses: [],
     documents: [],
+    subscriptions: [],
+    aiUsage: [],
+    aiUsageLog: [],
   };
 }
 
@@ -25,6 +28,9 @@ export function readDB() {
   try {
     const parsed = JSON.parse(raw);
     if (!parsed.documents) parsed.documents = [];
+    if (!parsed.subscriptions) parsed.subscriptions = [];
+    if (!parsed.aiUsage) parsed.aiUsage = [];
+    if (!parsed.aiUsageLog) parsed.aiUsageLog = [];
     return parsed;
   } catch {
     return defaultData();

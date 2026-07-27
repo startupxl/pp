@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<!--
+  PRINCIPLE PITCH — MARKETING LANDING PAGE
+  Static, single-file HTML for hosting at principlepitch.com (upload as index.html
+  via public_html). No build step, no external framework — inline CSS, a little
+  vanilla JS for the mobile menu and FAQ accordion.
+
+  BEFORE YOU PUBLISH, PLEASE REVIEW THESE PLACEHOLDERS:
+  1. Pricing figures in the #pricing section (Free / Pro $19 / Team $39 per user)
+     are illustrative — swap in your real numbers.
+  2. Sign Up / Log In links point to https://app.principlepitch.com/signup and
+     /signin, matching the app's actual React Router routes (client/src/App.jsx:
+     "/signup" and "/signin"). If the deployed app ends up on a different domain
+     than app.principlepitch.com, do a find-and-replace on that string.
+  3. Footer legal links (Privacy Policy, Terms) point to "#" — add real pages
+     before launch.
+  4. The persona quotes in the "Why teams choose Principle Pitch" section are
+     illustrative example use-cases (labeled by role, not real named customers)
+     — replace with real testimonials as you collect them.
+  5. Favicon is a simple inline SVG monogram — swap for a real favicon file if
+     you have one.
+  6. Pricing now includes AI-assisted feature allowances (draft content, chat
+     assistant, narrative generation, smarter recommendations), computed from
+     real Claude Sonnet API pricing ($3/$15 per million input/output tokens)
+     at roughly $0.01/action blended cost, plus ~$2/user/month infra, landing
+     at ~80-85% gross margin per tier. Re-validate these caps against real
+     usage data once the AI features ship — these are pre-launch estimates.
+  7. Because paid plans now include real AI-assisted features, the earlier
+     "0 AI Black Boxes" / "no AI" language was updated to be accurate: the
+     core scoring engine (health scores, forecasts, quadrant classifications)
+     is still 100% deterministic and never uses AI — that has NOT changed —
+     but optional AI-assist features are now available on paid plans and are
+     described honestly rather than claiming zero AI exists anywhere.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Principle Pitch — Structure Your Thinking with 72+ Proven Frameworks</title>
+<meta name="description" content="Principle Pitch gives senior leaders, consultants, and sales teams 72+ proven frameworks — SWOT, OKRs, Porter's Five Forces, SCQA, and more — with guided, manual-entry workspaces and zero AI black box. Start free." />
+<meta name="theme-color" content="#041627" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Principle Pitch — Structure Your Thinking with 72+ Proven Frameworks" />
+<meta property="og:description" content="The workspace for leaders, consultants, and sales teams who need to think clearly and pitch persuasively — powered by 72+ proven frameworks, not AI guesswork." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://principlepitch.com" />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23041627'/%3E%3Ctext x='32' y='44' font-size='34' font-family='Arial, sans-serif' font-weight='700' fill='%2398edf6' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet" />
+
+<style>
+  :root {
+    --primary: #041627;
+    --primary-container: #1a2b3c;
+    --secondary: #006970;
+    --secondary-container: #98edf6;
+    --secondary-fixed-dim: #7fd4dc;
+    --background: #f8f9ff;
+    --surface: #ffffff;
+    --surface-container-low: #eff4ff;
+    --surface-container: #e5eeff;
+    --on-surface: #0b1c30;
+    --on-surface-variant: #44474c;
+    --outline-variant: #c4c6cd;
+    --error: #ba1a1a;
+    --shadow: 0 4px 20px rgba(4, 22, 39, 0.08);
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --max-width: 1180px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--background);
+    color: var(--on-surface);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+  }
+
+  img, svg { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  ul { list-style: none; }
+
+  .wrap {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  section { padding: 96px 0; }
+  @media (max-width: 720px) { section { padding: 64px 0; } }
+
+  h1, h2, h3, h4 { font-weight: 800; letter-spacing: -0.02em; color: var(--primary); }
+  h2 { font-size: 2.25rem; }
+  h3 { font-size: 1.35rem; }
+  p { color: var(--on-surface-variant); }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--secondary);
+    background: rgba(0, 105, 112, 0.08);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+
+  .section-head { max-width: 640px; margin: 0 auto 48px; text-align: center; }
+  .section-head p { font-size: 1.05rem; margin-top: 12px; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 26px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease, opacity 0.15s ease, border-color 0.2s ease;
+    white-space: nowrap;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:active { transform: translateY(0); }
+  .btn::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -75%;
+    width: 50%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.65s ease;
+    pointer-events: none;
+  }
+  .btn:hover::after { left: 125%; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--secondary), #05888f);
+    color: #ffffff;
+    box-shadow: 0 8px 24px rgba(0, 105, 112, 0.35);
+  }
+  .btn-primary:hover { box-shadow: 0 12px 34px rgba(0, 105, 112, 0.5); }
+  .btn-outline { background: transparent; color: var(--primary); border: 1.5px solid var(--outline-variant); }
+  .btn-outline:hover { border-color: var(--secondary); color: var(--secondary); box-shadow: 0 6px 18px rgba(0, 105, 112, 0.12); }
+  .btn-light { background: #ffffff; color: var(--primary); }
+  .btn-light:hover { box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18); }
+  .btn-block { width: 100%; }
+
+  /* ---------- Header ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(248, 249, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--outline-variant);
+    box-shadow: 0 0 0 rgba(4, 22, 39, 0);
+    transition: box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  header.scrolled {
+    box-shadow: 0 4px 24px rgba(4, 22, 39, 0.08);
+    border-bottom-color: transparent;
+  }
+  .nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 76px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: var(--primary);
+  }
+  .logo-mark {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: var(--primary);
+    color: var(--secondary-container);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1rem;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--on-surface-variant);
+  }
+  .nav-links a:hover { color: var(--secondary); }
+  .nav-actions { display: flex; align-items: center; gap: 20px; }
+  .nav-login { font-weight: 600; font-size: 0.92rem; color: var(--on-surface-variant); }
+  .nav-login:hover { color: var(--secondary); }
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 88px 0 64px;
+    overflow: hidden;
+    position: relative;
+    background-image: radial-gradient(rgba(4, 22, 39, 0.05) 1px, transparent 1px);
+    background-size: 26px 26px;
+    background-position: -13px -13px;
+  }
+  .hero-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    pointer-events: none;
+    z-index: 0;
+    animation: blobDrift 12s ease-in-out infinite;
+  }
+  .hero-blob.b1 {
+    width: 420px; height: 420px;
+    top: -140px; right: -100px;
+    background: radial-gradient(circle, var(--secondary-container) 0%, transparent 70%);
+    opacity: 0.55;
+  }
+  .hero-blob.b2 {
+    width: 340px; height: 340px;
+    bottom: -160px; left: -90px;
+    background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+    opacity: 0.16;
+    animation-delay: -6s;
+  }
+  @keyframes blobDrift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-16px, 20px) scale(1.06); }
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 56px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  @media (max-width: 980px) {
+    .hero-grid { grid-template-columns: 1fr; }
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+    line-height: 1.08;
+    margin-bottom: 20px;
+  }
+  .hero h1 span {
+    background: linear-gradient(90deg, var(--secondary), #06a3a8 60%, var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero p.lead { font-size: 1.15rem; max-width: 540px; margin-bottom: 32px; }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 28px; }
+  .hero-trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 0.85rem;
+    color: var(--on-surface-variant);
+    font-weight: 600;
+  }
+  .hero-trust li { display: flex; align-items: center; gap: 6px; }
+  .hero-trust .material-symbols-outlined { font-size: 18px; color: var(--secondary); }
+
+  /* Hero visual mockup (pure CSS, no external images) */
+  .hero-visual {
+    padding: 20px;
+    position: relative;
+  }
+  .hero-visual-inner {
+    background: var(--surface);
+    border: 1px solid var(--outline-variant);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 20px 50px rgba(4, 22, 39, 0.14);
+    padding: 20px;
+    animation: floatY 5s ease-in-out infinite;
+  }
+  @keyframes floatY {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .mock-window-bar { display: flex; gap: 6px; margin-bottom: 16px; }
+  .mock-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--outline-variant); }
+  .mock-card {
+    background: var(--surface-container-low);
+    border-radius: var(--radius-md);
+    padding: 20px;
+  }
+  .mock-quad {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .mock-quad div {
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .mock-quad .s { background: var(--secondary); }
+  .mock-quad .w { background: var(--primary); }
+  .mock-quad .o { background: #2f8f96; }
+  .mock-quad .t { background: var(--error); }
+  .mock-quad div small { display: block; font-weight: 500; opacity: 0.85; margin-top: 6px; font-size: 0.66rem; }
+  .mock-badge {
+    position: absolute;
+    background: var(--primary);
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    box-shadow: var(--shadow);
+  }
+  .mock-badge.b1 { top: -14px; right: 12px; background: var(--secondary); }
+  .mock-badge.b2 { bottom: -14px; left: 12px; }
+  .mock-badge .material-symbols-outlined { font-size: 16px; margin-right: 4px; }
+
+  /* ---------- Stat strip ---------- */
+  .stat-strip {
+    background: var(--primary);
+    color: #fff;
+    padding: 40px 0;
+  }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    text-align: center;
+  }
+  @media (max-width: 720px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+  .stat-grid .num { font-size: 2rem; font-weight: 800; color: var(--secondary-container); }
+  .stat-grid .label { font-size: 0.8rem; color: rgba(255,255,255,0.7); font-weight: 600; margin-top: 4px; }
+
+  /* ---------- Pain points ---------- */
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 1100px) { .pain-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .pain-grid { grid-template-columns: 1fr; } }
+  .pain-card {
+    background: var(--surface);
+    border: 1px solid var(--outline-variant);
+    border-radius: var(--radius-md);
+    padding: 28px;
+    transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .pain-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 34px rgba(4, 22, 39, 0.1);
+    border-color: var(--error);
+  }
+  .pain-card .material-symbols-outlined {
+    font-size: 26px;
+    color: var(--error);
+    background: rgba(186,26,26,0.08);
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .pain-card h3 { margin-bottom: 8px; }
+
+  /* ---------- Solution / audience ---------- */
+  .audience-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 980px) { .audience-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .audience-grid { grid-template-columns: 1fr; } }
+  .audience-card {
+    background: var(--surface);
+    border: 1px solid var(--outline-variant);
+    border-radius: var(--radius-md);
+    padding: 26px;
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .audience-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+  .audience-card .material-symbols-outlined {
+    font-size: 24px;
+    color: var(--secondary);
+    background: var(--secondary-container);
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .audience-card h3 { font-size: 1.1rem; margin-bottom: 10px; }
+  .audience-card ul { display: flex; flex-direction: column; gap: 8px; }
+  .audience-card li { font-size: 0.86rem; color: var(--on-surface-variant); display: flex; gap: 8px; align-items: flex-start; }
+  .audience-card li .material-symbols-outlined { font-size: 15px; color: var(--secondary); background: none; width: auto; height: auto; margin: 2px 0 0; }
+
+  /* ---------- AI Coach showcase ---------- */
+  .coach-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  @media (max-width: 900px) { .coach-grid { grid-template-columns: 1fr; } }
+  .coach-mock {
+    background: var(--surface-container-low);
+    border: 1px solid var(--outline-variant);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .coach-mock-msg { display: flex; gap: 10px; align-items: flex-start; }
+  .coach-mock-msg.user { justify-content: flex-end; }
+  .coach-mock-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: var(--primary);
+    color: var(--secondary-container);
+    font-weight: 800;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .coach-mock-bubble {
+    background: var(--surface);
+    border: 1px solid var(--outline-variant);
+    border-radius: 14px 14px 14px 4px;
+    padding: 12px 16px;
+    font-size: 0.86rem;
+    color: var(--on-surface);
+    max-width: 340px;
+  }
+  .coach-mock-bubble.user {
+    background: var(--secondary);
+    color: #fff;
+    border: none;
+    border-radius: 14px 14px 4px 14px;
+  }
+
+  /* ---------- How it works ---------- */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    counter-reset: step;
+  }
+  @media (max-width: 900px) { .steps { grid-template-columns: 1fr; } }
+  .step {
+    position: relative;
+    padding: 32px 24px 24px;
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--outline-variant);
+    transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .step:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 34px rgba(4, 22, 39, 0.1);
+    border-color: var(--secondary);
+  }
+  .step .step-num {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: var(--secondary-container);
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+  }
+  .step h3 { margin-bottom: 8px; }
+
+  /* ---------- Feature grid ---------- */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  @media (max-width: 900px) { .feature-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .feature-grid { grid-template-columns: 1fr; } }
+  .feature-card {
+    padding: 26px;
+    border-radius: var(--radius-md);
+    background: var(--surface-container-low);
+    border: 1px solid transparent;
+    transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  }
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 34px rgba(4, 22, 39, 0.1);
+    border-color: var(--secondary);
+    background: var(--surface);
+  }
+  .feature-card .material-symbols-outlined {
+    font-size: 22px;
+    color: var(--secondary);
+    margin-bottom: 14px;
+  }
+  .feature-card h3 { font-size: 1.02rem; margin-bottom: 8px; }
+  .feature-card p { font-size: 0.88rem; }
+
+  /* ---------- Framework showcase ---------- */
+  .category-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+  .chip {
+    background: var(--surface);
+    border: 1px solid var(--outline-variant);
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--on-surface-variant);
+  }
+  .chip strong { color: var(--primary); }
+  .framework-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+  .pill {
+    background: var(--primary);
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .pill.alt { background: var(--secondary); }
+
+  /* ---------- Persona quotes ---------- */
+  .quote-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 900px) { .quote-grid { grid-template-columns: 1fr; } }
+  .quote-card {
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--outline-variant);
+    padding: 28px;
+    transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .quote-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 34px rgba(4, 22, 39, 0.1);
+    border-color: var(--secondary);
+  }
+  .quote-card .material-symbols-outlined { color: var(--secondary-container); font-size: 32px; margin-bottom: 12px; }
+  .quote-card p.quote { color: var(--on-surface); font-size: 0.98rem; font-style: italic; margin-bottom: 16px; }
+  .quote-card .role { font-size: 0.8rem; font-weight: 700; color: var(--secondary); text-transform: uppercase; letter-spacing: 0.04em; }
+  .quote-disclaimer { text-align: center; font-size: 0.78rem; color: var(--on-surface-variant); margin-top: 24px; opacity: 0.75; }
+
+  /* ---------- Pricing ---------- */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: stretch;
+  }
+  @media (max-width: 900px) { .pricing-grid { grid-template-columns: 1fr; } }
+  .price-card {
+    background: var(--surface);
+    border: 1.5px solid var(--outline-variant);
+    border-radius: var(--radius-lg);
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+  }
+  .price-card {
+    transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease;
+  }
+  .price-card:not(.featured):hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 34px rgba(4, 22, 39, 0.1);
+  }
+  .price-card.featured {
+    border-color: var(--secondary);
+    box-shadow: 0 12px 40px rgba(0, 105, 112, 0.18);
+    position: relative;
+    transform: scale(1.02);
+    animation: pricePulse 3.5s ease-in-out infinite;
+  }
+  @keyframes pricePulse {
+    0%, 100% { box-shadow: 0 12px 40px rgba(0, 105, 112, 0.18); }
+    50% { box-shadow: 0 16px 52px rgba(0, 105, 112, 0.3); }
+  }
+  .price-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--secondary);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .price-card h3 { font-size: 1.15rem; margin-bottom: 6px; }
+  .price-card .price-desc { font-size: 0.85rem; margin-bottom: 20px; min-height: 40px; }
+  .price-amount { display: flex; align-items: baseline; gap: 4px; margin-bottom: 24px; }
+  .price-amount .num { font-size: 2.4rem; font-weight: 800; color: var(--primary); }
+  .price-amount .period { font-size: 0.85rem; color: var(--on-surface-variant); font-weight: 600; }
+  .price-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; flex: 1; }
+  .price-list li { font-size: 0.88rem; display: flex; gap: 10px; align-items: flex-start; color: var(--on-surface-variant); }
+  .price-list .material-symbols-outlined { font-size: 17px; color: var(--secondary); margin-top: 1px; }
+
+  /* ---------- FAQ ---------- */
+  .faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+  .faq-item { background: var(--surface); border: 1px solid var(--outline-variant); border-radius: var(--radius-md); overflow: hidden; }
+  .faq-q {
+    width: 100%;
+    text-align: left;
+    padding: 20px 22px;
+    background: none;
+    border: none;
+    font-weight: 700;
+    font-size: 0.98rem;
+    color: var(--primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+  .faq-q .material-symbols-outlined { transition: transform 0.2s ease; color: var(--secondary); }
+  .faq-item.open .faq-q .material-symbols-outlined { transform: rotate(180deg); }
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+    padding: 0 22px;
+  }
+  .faq-item.open .faq-a { max-height: 300px; padding-bottom: 20px; }
+  .faq-a p { font-size: 0.9rem; }
+
+  /* ---------- Final CTA ---------- */
+  .final-cta {
+    background: linear-gradient(135deg, var(--primary), var(--primary-container));
+    color: #fff;
+    text-align: center;
+    border-radius: var(--radius-lg);
+    padding: 64px 32px;
+    margin: 0 24px;
+  }
+  .final-cta h2 { color: #fff; margin-bottom: 14px; }
+  .final-cta p { color: rgba(255,255,255,0.75); max-width: 520px; margin: 0 auto 30px; }
+  .final-cta .hero-ctas { justify-content: center; }
+
+  /* ---------- Footer ---------- */
+  footer { background: var(--primary); color: rgba(255,255,255,0.65); padding: 56px 0 28px; margin-top: 96px; }
+  .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+  @media (max-width: 720px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  .footer-grid h4 { color: #fff; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 16px; }
+  .footer-grid ul { display: flex; flex-direction: column; gap: 10px; font-size: 0.88rem; }
+  .footer-grid a:hover { color: #fff; }
+  .footer-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; color: #fff; font-size: 1.1rem; margin-bottom: 12px; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 0.8rem;
+  }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+  }
+  .fade-up.in-view { opacity: 1; transform: translateY(0); }
+  .fade-up.hero-visual.in-view { transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .fade-up, .fade-up.in-view { opacity: 1; transform: none; transition: none; }
+    .hero-blob, .hero-visual-inner, .price-card.featured { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <div class="wrap nav-bar">
+    <a href="#top" class="logo">
+      <span class="logo-mark">P</span>
+      Principle Pitch
+    </a>
+    <nav class="nav-links">
+      <a href="#frameworks">Frameworks</a>
+      <a href="#ai-coach">AI Coach</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="nav-login" href="https://app.principlepitch.com/signin">Log In</a>
+      <a class="btn btn-primary" href="https://app.principlepitch.com/signup">Start Free</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+  </div>
+  <div class="wrap" id="mobileMenu" style="display:none; padding-bottom: 20px; flex-direction: column; gap: 14px;">
+    <a href="#frameworks">Frameworks</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://app.principlepitch.com/signin">Log In</a>
+    <a class="btn btn-primary btn-block" href="https://app.principlepitch.com/signup">Start Free</a>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<div id="top"></div>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="fade-up">
+      <span class="eyebrow"><span class="material-symbols-outlined" style="font-size:14px;">bolt</span> For leaders, consultants &amp; sales teams</span>
+      <h1>Turn scattered thinking into <span>structured, persuasive</span> decisions.</h1>
+      <p class="lead">Principle Pitch gives you 72+ proven frameworks — SWOT, OKRs, Porter's Five Forces, SCQA, RACI, and more — with an AI coach built into every one. Never used a framework before? It explains what it is, why it fits your situation, and walks you through filling it out. Every score and forecast is still computed straight from your own data — the AI teaches, it doesn't decide for you.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="https://app.principlepitch.com/signup">
+          Start Free — No Credit Card Required
+        </a>
+        <a class="btn btn-outline" href="#frameworks">Explore the Framework Library</a>
+      </div>
+      <ul class="hero-trust">
+        <li><span class="material-symbols-outlined">verified</span> 72+ proven frameworks</li>
+        <li><span class="material-symbols-outlined">school</span> AI coach teaches as you go</li>
+        <li><span class="material-symbols-outlined">lock</span> Your data stays yours</li>
+      </ul>
+    </div>
+    <div class="hero-visual fade-up" style="animation-delay: 0.1s;">
+      <span class="mock-badge b1"><span class="material-symbols-outlined">check_circle</span>Recommended for you</span>
+      <div class="hero-visual-inner">
+        <div class="mock-window-bar">
+          <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+        </div>
+        <div class="mock-card">
+          <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; color:var(--secondary); letter-spacing:0.05em;">SWOT Analysis</div>
+          <div style="font-size:1rem; font-weight:800; color:var(--primary); margin: 4px 0 12px;">Q3 Market Position</div>
+          <div class="mock-quad">
+            <div class="s">Strengths<small>3 items</small></div>
+            <div class="w">Weaknesses<small>2 items</small></div>
+            <div class="o">Opportunities<small>4 items</small></div>
+            <div class="t">Threats<small>2 items</small></div>
+          </div>
+        </div>
+      </div>
+      <span class="mock-badge b2"><span class="material-symbols-outlined">edit_note</span>Fill in your own data</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STAT STRIP ================= -->
+<div class="stat-strip">
+  <div class="wrap stat-grid">
+    <div>
+      <div class="num" data-count-to="72" data-suffix="+">0</div>
+      <div class="label">Proven Frameworks</div>
+    </div>
+    <div>
+      <div class="num" data-count-to="13">0</div>
+      <div class="label">Categories Covered</div>
+    </div>
+    <div>
+      <div class="num" data-count-to="100" data-suffix="%">0</div>
+      <div class="label">Explainable Core Scoring</div>
+    </div>
+    <div>
+      <div class="num" data-count-to="5" data-suffix=" min">0</div>
+      <div class="label">To Your First Workspace</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= PROBLEM ================= -->
+<section id="problem">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">The Problem</span>
+      <h2>You know the feeling.</h2>
+      <p>Big decisions, board updates, and pitches don't fail because the idea is bad — they fail because the thinking behind them was never structured.</p>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card fade-up">
+        <span class="material-symbols-outlined">psychology_alt</span>
+        <h3>Scattered thinking under pressure</h3>
+        <p>You're staring at a blank doc an hour before the board call, trying to remember the framework you used last time — or whether one even applies here.</p>
+      </div>
+      <div class="pain-card fade-up" style="animation-delay:0.1s;">
+        <span class="material-symbols-outlined">history_toggle_off</span>
+        <h3>Reinventing the wheel every quarter</h3>
+        <p>Every SWOT, every OKR set, every stakeholder map starts from a blank page — because there's nowhere your structured thinking lives and compounds over time.</p>
+      </div>
+      <div class="pain-card fade-up" style="animation-delay:0.2s;">
+        <span class="material-symbols-outlined">forum</span>
+        <h3>Ideas that don't land</h3>
+        <p>You know the content is right, but the pitch, the deck, or the email doesn't move the room — because the structure underneath it was never proven to work.</p>
+      </div>
+      <div class="pain-card fade-up" style="animation-delay:0.3s;">
+        <span class="material-symbols-outlined">quiz</span>
+        <h3>You've never used this framework before</h3>
+        <p>You've heard of SWOT or OKRs, but not Porter's Five Forces or a RACI matrix — and nobody wants to be the one asking "wait, how does this work?" in front of the team.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SOLUTION / AUDIENCE ================= -->
+<section id="solution" style="background:var(--surface);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">The Solution</span>
+      <h2>One workspace. 72 proven ways to think clearly.</h2>
+      <p>Tell us your situation, get matched to the right framework, and let the built-in AI coach teach you how to use it. Every insight on the page is still computed from your own answers, never invented by an AI.</p>
+    </div>
+    <div class="audience-grid">
+      <div class="audience-card fade-up">
+        <span class="material-symbols-outlined">account_balance</span>
+        <h3>Senior Leaders</h3>
+        <ul>
+          <li><span class="material-symbols-outlined">check</span>Structure board updates and strategic reviews fast</li>
+          <li><span class="material-symbols-outlined">check</span>Balanced Scorecard, McKinsey 7S, Strategic Risk in one place</li>
+          <li><span class="material-symbols-outlined">check</span>Defend decisions with a proven framework, not a hunch</li>
+        </ul>
+      </div>
+      <div class="audience-card fade-up" style="animation-delay:0.05s;">
+        <span class="material-symbols-outlined">work</span>
+        <h3>Consultants &amp; Advisors</h3>
+        <ul>
+          <li><span class="material-symbols-outlined">check</span>Run client workshops without rebuilding templates</li>
+          <li><span class="material-symbols-outlined">check</span>MECE, Issue Trees, Hypothesis-Driven Thinking, ready to go</li>
+          <li><span class="material-symbols-outlined">check</span>Every deliverable stays structured and defensible</li>
+        </ul>
+      </div>
+      <div class="audience-card fade-up" style="animation-delay:0.1s;">
+        <span class="material-symbols-outlined">trending_up</span>
+        <h3>Sales Teams</h3>
+        <ul>
+          <li><span class="material-symbols-outlined">check</span>Sales Pipeline Kanban with live weighted forecasting</li>
+          <li><span class="material-symbols-outlined">check</span>SCQA and BLUF for pitches that open strong</li>
+          <li><span class="material-symbols-outlined">check</span>Stakeholder Mapping for complex enterprise deals</li>
+        </ul>
+      </div>
+      <div class="audience-card fade-up" style="animation-delay:0.15s;">
+        <span class="material-symbols-outlined">campaign</span>
+        <h3>Anyone Pitching an Idea</h3>
+        <ul>
+          <li><span class="material-symbols-outlined">check</span>The Hero's Journey and Minto Pyramid for narrative</li>
+          <li><span class="material-symbols-outlined">check</span>ICE and MoSCoW to prioritize before you pitch</li>
+          <li><span class="material-symbols-outlined">check</span>Guided "how to fill this out" content on every tool</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= AI COACH SHOWCASE ================= -->
+<section id="ai-coach" style="background:var(--surface);">
+  <div class="wrap">
+    <div class="coach-grid">
+      <div class="fade-up">
+        <span class="eyebrow"><span class="material-symbols-outlined" style="font-size:14px;">school</span> New feature</span>
+        <h2 style="margin-bottom:16px;">Never used this framework before? Neither had most of our users.</h2>
+        <p style="font-size:1.05rem; margin-bottom:24px; max-width:480px;">Every framework in Principle Pitch now comes with an embedded AI coach. Ask it what a framework is, why it fits your situation, or what to write in a field you're stuck on — it explains in plain English and walks you through it, live.</p>
+        <ul style="display:flex; flex-direction:column; gap:14px; margin-bottom:28px;">
+          <li style="display:flex; gap:12px; align-items:flex-start; font-size:0.95rem; color:var(--on-surface-variant);">
+            <span class="material-symbols-outlined" style="color:var(--secondary);">check_circle</span>
+            Plain-English explanations — no consulting jargon
+          </li>
+          <li style="display:flex; gap:12px; align-items:flex-start; font-size:0.95rem; color:var(--on-surface-variant);">
+            <span class="material-symbols-outlined" style="color:var(--secondary);">check_circle</span>
+            Step-by-step guidance as you fill in each field
+          </li>
+          <li style="display:flex; gap:12px; align-items:flex-start; font-size:0.95rem; color:var(--on-surface-variant);">
+            <span class="material-symbols-outlined" style="color:var(--secondary);">check_circle</span>
+            Ask follow-up questions anytime — it never disappears after onboarding
+          </li>
+        </ul>
+        <a class="btn btn-primary" href="https://app.principlepitch.com/signup">Try the AI Coach Free</a>
+      </div>
+      <div class="fade-up" style="animation-delay:0.1s;">
+        <div class="coach-mock">
+          <div class="coach-mock-msg bot">
+            <span class="coach-mock-avatar">P</span>
+            <div class="coach-mock-bubble">I've never done a Porter's Five Forces before — where do I start?</div>
+          </div>
+          <div class="coach-mock-msg bot">
+            <span class="coach-mock-avatar">P</span>
+            <div class="coach-mock-bubble">It rates 5 pressures on your industry's profitability — rivals, suppliers, buyers, substitutes, and new entrants. Let's start with Competitive Rivalry: how many close competitors do you have, and how similar are your products?</div>
+          </div>
+          <div class="coach-mock-msg user">
+            <div class="coach-mock-bubble user">3-4 direct competitors, pretty similar features.</div>
+          </div>
+          <div class="coach-mock-msg bot">
+            <span class="coach-mock-avatar">P</span>
+            <div class="coach-mock-bubble">That's high rivalry — I'd set that slider around 65-70. Want me to explain Supplier Power next?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HOW IT WORKS ================= -->
+<section id="how-it-works">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">How It Works</span>
+      <h2>From blank page to structured decision in three steps.</h2>
+    </div>
+    <div class="steps">
+      <div class="step fade-up">
+        <div class="step-num">1</div>
+        <h3>Tell us your challenge</h3>
+        <p>Competitive threat? New market entry? Prioritization? Answer one question and get matched to the 2–3 frameworks best suited to your situation — out of 72+.</p>
+      </div>
+      <div class="step fade-up" style="animation-delay:0.1s;">
+        <div class="step-num">2</div>
+        <h3>Fill in guided, structured prompts</h3>
+        <p>Every tool has manual, editable fields, a "how to fill this out" guide, and an AI coach on standby if you get stuck or want it explained differently — you stay in the driver's seat, it just makes sure you're never lost.</p>
+      </div>
+      <div class="step fade-up" style="animation-delay:0.2s;">
+        <div class="step-num">3</div>
+        <h3>Walk away with a decision-ready document</h3>
+        <p>Your workspace autosaves as you type and computes live insights — health scores, forecasts, bottlenecks — straight from your own data.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section style="background:var(--surface);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Why Principle Pitch</span>
+      <h2>Built to be trusted, not just used.</h2>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card fade-up">
+        <span class="material-symbols-outlined">explore</span>
+        <h3>Situational recommendations</h3>
+        <p>Describe your challenge and get matched to the right frameworks instead of scrolling through 72 options.</p>
+      </div>
+      <div class="feature-card fade-up" style="animation-delay:0.05s;">
+        <span class="material-symbols-outlined">menu_book</span>
+        <h3>Guided "how to use it" content</h3>
+        <p>Every framework ships with what it is, when to use it, and how to fill it out — no guesswork, no separate manual.</p>
+      </div>
+      <div class="feature-card fade-up" style="animation-delay:0.06s;">
+        <span class="material-symbols-outlined">school</span>
+        <h3>An AI coach for every framework</h3>
+        <p>New to Porter's Five Forces or RACI? Ask the built-in coach what it is, why it fits, and how to fill it out — in plain English, live, as many times as you need.</p>
+      </div>
+      <div class="feature-card fade-up" style="animation-delay:0.1s;">
+        <span class="material-symbols-outlined">shield_lock</span>
+        <h3>Deterministic core, AI when you want it</h3>
+        <p>Every score, forecast, and quadrant classification is computed directly from the data you enter — no AI guessing. Optional AI-assist features are there when you want a head start, and clearly labeled when used.</p>
+      </div>
+      <div class="feature-card fade-up" style="animation-delay:0.15s;">
+        <span class="material-symbols-outlined">save</span>
+        <h3>Live-saving workspaces</h3>
+        <p>Every keystroke autosaves. Come back tomorrow, next quarter, or next year and your thinking is exactly where you left it.</p>
+      </div>
+      <div class="feature-card fade-up" style="animation-delay:0.2s;">
+        <span class="material-symbols-outlined">category</span>
+        <h3>13 categories, 72+ frameworks</h3>
+        <p>Strategy, Communication, Leadership, Sales, Finance, People, Product, Marketing, Operations, Research, and more.</p>
+      </div>
+      <div class="feature-card fade-up" style="animation-delay:0.25s;">
+        <span class="material-symbols-outlined">groups</span>
+        <h3>Built for how teams actually work</h3>
+        <p>RACI Matrix, Stakeholder Mapping, Capacity Planning, and Team Capacity Heatmap keep everyone aligned on ownership.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FRAMEWORK SHOWCASE ================= -->
+<section id="frameworks">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">The Library</span>
+      <h2>72+ frameworks. Every one battle-tested.</h2>
+      <p>From foundational strategy tools to specialized workshops for sales, finance, and people teams.</p>
+    </div>
+    <div class="category-chips">
+      <span class="chip"><strong>Strategy</strong> · 20+</span>
+      <span class="chip"><strong>Leadership</strong> · 10+</span>
+      <span class="chip"><strong>Communication</strong> · 6</span>
+      <span class="chip"><strong>Problem Solving</strong> · 7</span>
+      <span class="chip"><strong>People</strong> · 5</span>
+      <span class="chip"><strong>Sales</strong> · 2</span>
+      <span class="chip"><strong>Finance</strong> · 5</span>
+      <span class="chip"><strong>Product</strong> · 2</span>
+      <span class="chip"><strong>Marketing</strong> · 2</span>
+      <span class="chip"><strong>Operations</strong> · 3</span>
+      <span class="chip"><strong>Research</strong> · 3</span>
+      <span class="chip"><strong>Execution</strong> · 2</span>
+      <span class="chip"><strong>Narrative</strong> · 3</span>
+    </div>
+    <div class="framework-pills">
+      <span class="pill">SWOT Analysis</span>
+      <span class="pill alt">OKR Workshop</span>
+      <span class="pill">Porter's Five Forces</span>
+      <span class="pill alt">SCQA Storytelling</span>
+      <span class="pill">RACI Matrix</span>
+      <span class="pill alt">Balanced Scorecard</span>
+      <span class="pill">ICE Scoring</span>
+      <span class="pill alt">McKinsey 7S</span>
+      <span class="pill">Eisenhower Matrix</span>
+      <span class="pill alt">The Hero's Journey</span>
+      <span class="pill">Sales Pipeline Kanban</span>
+      <span class="pill alt">Investor Relations Hub</span>
+      <span class="pill">Stakeholder Mapping</span>
+      <span class="pill alt">First Principles</span>
+      <span class="pill">+ 58 more</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PERSONA QUOTES ================= -->
+<section style="background:var(--surface);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Built For Real Work</span>
+      <h2>Why teams like yours choose Principle Pitch</h2>
+    </div>
+    <div class="quote-grid">
+      <div class="quote-card fade-up">
+        <span class="material-symbols-outlined">format_quote</span>
+        <p class="quote">"I stopped rebuilding the same competitive analysis deck every quarter. Now it's a living workspace my whole team can update."</p>
+        <div class="role">VP of Strategy</div>
+      </div>
+      <div class="quote-card fade-up" style="animation-delay:0.1s;">
+        <span class="material-symbols-outlined">format_quote</span>
+        <p class="quote">"Client workshops used to mean packing a folder of templates. Now I open one link and every framework I need is already there."</p>
+        <div class="role">Independent Management Consultant</div>
+      </div>
+      <div class="quote-card fade-up" style="animation-delay:0.2s;">
+        <span class="material-symbols-outlined">format_quote</span>
+        <p class="quote">"The Sales Pipeline tool alone paid for itself — I can see my weighted forecast update the second I move a deal stage."</p>
+        <div class="role">Enterprise Account Executive</div>
+      </div>
+    </div>
+    <p class="quote-disclaimer">Illustrative example use cases based on common workflows — not verified customer reviews.</p>
+  </div>
+</section>
+
+<!-- ================= PRICING ================= -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Pricing</span>
+      <h2>Start free. Upgrade when you're ready.</h2>
+      <p>No credit card required to start. Cancel anytime. Every plan includes the full deterministic scoring engine — AI-assist allowances scale with the tier.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card fade-up">
+        <h3>Free</h3>
+        <p class="price-desc">For individuals exploring their first frameworks.</p>
+        <div class="price-amount"><span class="num">$0</span><span class="period">/ forever</span></div>
+        <ul class="price-list">
+          <li><span class="material-symbols-outlined">check</span>Access to 10 starter frameworks</li>
+          <li><span class="material-symbols-outlined">check</span>3 active workspaces</li>
+          <li><span class="material-symbols-outlined">check</span>Situational recommendations</li>
+          <li><span class="material-symbols-outlined">check</span>Guided how-to content</li>
+          <li><span class="material-symbols-outlined">smart_toy</span>20 AI-assist actions / month</li>
+        </ul>
+        <a class="btn btn-outline btn-block" href="https://app.principlepitch.com/signup?plan=free">Start Free</a>
+      </div>
+      <div class="price-card featured fade-up" style="animation-delay:0.1s;">
+        <span class="price-badge">Most Popular</span>
+        <h3>Pro</h3>
+        <p class="price-desc">For leaders and consultants who work in frameworks weekly.</p>
+        <div class="price-amount"><span class="num">$19</span><span class="period">/ month</span></div>
+        <ul class="price-list">
+          <li><span class="material-symbols-outlined">check</span>Full library — all 72+ frameworks</li>
+          <li><span class="material-symbols-outlined">check</span>Unlimited workspaces</li>
+          <li><span class="material-symbols-outlined">check</span>Version history &amp; document export</li>
+          <li><span class="material-symbols-outlined">check</span>Priority support</li>
+          <li><span class="material-symbols-outlined">smart_toy</span>150 AI-assist actions / month</li>
+        </ul>
+        <a class="btn btn-primary btn-block" href="https://app.principlepitch.com/signup?plan=pro">Upgrade to Pro</a>
+      </div>
+      <div class="price-card fade-up" style="animation-delay:0.2s;">
+        <h3>Team</h3>
+        <p class="price-desc">For sales, consulting, and leadership teams working together.</p>
+        <div class="price-amount"><span class="num">$39</span><span class="period">/ user / month</span></div>
+        <ul class="price-list">
+          <li><span class="material-symbols-outlined">check</span>Everything in Pro, for every seat</li>
+          <li><span class="material-symbols-outlined">check</span>Shared team workspaces</li>
+          <li><span class="material-symbols-outlined">check</span>RACI &amp; capacity tools built for teams</li>
+          <li><span class="material-symbols-outlined">check</span>Admin controls &amp; centralized billing</li>
+          <li><span class="material-symbols-outlined">smart_toy</span>400 AI-assist actions / user / month</li>
+        </ul>
+        <a class="btn btn-outline btn-block" href="https://app.principlepitch.com/signup?plan=team">Get Team Plan</a>
+      </div>
+    </div>
+
+    <div style="display:flex; justify-content:center; margin-top:14px;">
+      <p style="font-size:0.85rem; color:var(--on-surface-variant); text-align:center; max-width:560px;">
+        Need more AI-assist actions? Add-on packs: <strong style="color:var(--primary);">+100 actions for $5</strong> or <strong style="color:var(--primary);">+500 actions for $20</strong>, available on Pro and Team.
+      </p>
+    </div>
+
+    <div style="margin-top:40px; background:var(--primary); border-radius:var(--radius-lg); padding:36px 40px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
+      <div>
+        <h3 style="color:#fff; margin-bottom:6px;">Enterprise</h3>
+        <p style="color:rgba(255,255,255,0.7); font-size:0.92rem; max-width:520px;">Pooled or unlimited AI-assist actions across your org, dedicated infrastructure, SSO, and a named account manager — priced per seat with volume discounts, starting around $59/user/month.</p>
+      </div>
+      <a class="btn btn-light" href="mailto:sales@principlepitch.com">Contact Sales</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq" style="background:var(--surface);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Questions, answered.</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">Is the content AI-generated?<span class="material-symbols-outlined">expand_more</span></button>
+        <div class="faq-a"><p>The core of every framework — health scores, forecasts, quadrant classifications, and recommendations — is computed directly from the data you enter using deterministic logic, never guessed by an AI. Paid plans also include optional AI-assist features (draft starter content, a chat assistant, narrative generation, and smarter recommendations) that you can use or ignore — anything AI-generated is clearly labeled as a starting point for you to edit, not a final answer.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What counts as an "AI-assist action"?<span class="material-symbols-outlined">expand_more</span></button>
+        <div class="faq-a"><p>One AI-assist action is one use of an AI-assist feature — generating a starter draft, one message to the chat assistant, one narrative/pitch generation, or one AI-powered recommendation. Your plan's monthly allowance resets each billing cycle, and you can buy add-on packs if you need more.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">I don't know which framework to use — how do I choose?<span class="material-symbols-outlined">expand_more</span></button>
+        <div class="faq-a"><p>Answer one question about your situation on the home page and we'll recommend the frameworks best suited to it. Every framework also has a built-in guide covering what it is, when to use it, and how to fill it out.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can my team collaborate on the same workspace?<span class="material-symbols-outlined">expand_more</span></button>
+        <div class="faq-a"><p>Yes, on the Team plan. Shared workspaces let your team build on the same RACI matrix, stakeholder map, or sales pipeline together.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is my data private?<span class="material-symbols-outlined">expand_more</span></button>
+        <div class="faq-a"><p>Your workspaces are yours. We don't use your data to train any model, and nothing you enter is sent to a third-party AI service — the insight logic runs entirely on your own inputs.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I cancel anytime?<span class="material-symbols-outlined">expand_more</span></button>
+        <div class="faq-a"><p>Yes. Pro and Team plans are billed monthly with no long-term contract, and you can cancel from your account settings at any time.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do I need to be a strategy expert to use this?<span class="material-symbols-outlined">expand_more</span></button>
+        <div class="faq-a"><p>No. Every framework is built as a guided workspace with prompts, examples, and explanations — designed for first-time users as much as seasoned consultants. If you get stuck, the AI coach is there to explain the framework in plain English and walk you through it.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">I've genuinely never heard of half these frameworks — is that a problem?<span class="material-symbols-outlined">expand_more</span></button>
+        <div class="faq-a"><p>That's exactly who the AI coach is built for. Ask it "what is this and why would I use it" on any of the 72+ frameworks and it'll explain it in plain language, then guide you field by field. Most people learn a new framework faster by using it once with the coach than by reading about it first.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section>
+  <div class="final-cta fade-up">
+    <h2>Stop guessing. Start structuring.</h2>
+    <p>Join leaders, consultants, and sales teams using 72+ proven frameworks to think clearer and pitch better.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-light" href="https://app.principlepitch.com/signup">Start Free — No Credit Card Required</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo"><span class="logo-mark">P</span>Principle Pitch</div>
+        <p style="font-size:0.85rem; max-width:260px;">The workspace for structured thinking — 72+ proven frameworks for leaders, consultants, and sales teams.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#frameworks">Frameworks</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="mailto:hello@principlepitch.com">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Principle Pitch. All rights reserved.</span>
+      <span>Made for people who think in frameworks.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const navToggle = document.getElementById('navToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  navToggle.addEventListener('click', () => {
+    const isOpen = mobileMenu.style.display === 'flex';
+    mobileMenu.style.display = isOpen ? 'none' : 'flex';
+  });
+  mobileMenu.querySelectorAll('a').forEach((a) =>
+    a.addEventListener('click', () => { mobileMenu.style.display = 'none'; })
+  );
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach((item) => {
+    item.querySelector('.faq-q').addEventListener('click', () => {
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach((i) => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+
+  // Sticky header scroll shadow
+  const siteHeader = document.querySelector('header');
+  const onScroll = () => {
+    siteHeader.classList.toggle('scrolled', window.scrollY > 8);
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Scroll-triggered reveal for .fade-up elements (falls back to visible if unsupported)
+  const revealTargets = document.querySelectorAll('.fade-up');
+  if ('IntersectionObserver' in window) {
+    revealTargets.forEach((el) => {
+      const delay = el.style.animationDelay;
+      if (delay) {
+        el.style.transitionDelay = delay;
+        el.style.animationDelay = '';
+      }
+    });
+    const revealObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    revealTargets.forEach((el) => revealObserver.observe(el));
+  } else {
+    revealTargets.forEach((el) => el.classList.add('in-view'));
+  }
+
+  // Animated stat counters
+  const countTargets = document.querySelectorAll('[data-count-to]');
+  if (countTargets.length) {
+    const animateCount = (el) => {
+      const target = parseFloat(el.dataset.countTo);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1200;
+      const start = performance.now();
+      const step = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(target * eased) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+    if ('IntersectionObserver' in window) {
+      const countObserver = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCount(entry.target);
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
+      countTargets.forEach((el) => countObserver.observe(el));
+    } else {
+      countTargets.forEach((el) => { el.textContent = el.dataset.countTo + (el.dataset.suffix || ''); });
+    }
+  }
+</script>
+
+</body>
+</html>

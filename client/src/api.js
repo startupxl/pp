@@ -19,7 +19,16 @@ async function request(path, options = {}) {
   });
   if (!res.ok && res.status !== 204) {
     const text = await res.text();
-    throw new Error(`API error ${res.status}: ${text}`);
+    let body = null;
+    try {
+      body = JSON.parse(text);
+    } catch {
+      /* not JSON */
+    }
+    const err = new Error(body?.error || `API error ${res.status}: ${text}`);
+    err.status = res.status;
+    err.body = body;
+    throw err;
   }
   if (res.status === 204) return null;
   return res.json();
@@ -55,4 +64,23 @@ export const api = {
   updateDocument: (id, payload) =>
     request(`/documents/${id}`, { method: "PATCH", body: JSON.stringify(payload) }),
   deleteDocument: (id) => request(`/documents/${id}`, { method: "DELETE" }),
+
+  // AI-assist (draft content, coach, narrative, recommendations) — every
+  // paid/free tier gets a monthly allowance, enforced server-side.
+  getAIUsage: () => request("/ai/usage"),
+  aiDraft: (payload) => request("/ai/draft", { method: "POST", body: JSON.stringify(payload) }),
+  aiCoach: (payload) => request("/ai/coach", { method: "POST", body: JSON.stringify(payload) }),
+  aiNarrative: (payload) =>
+    request("/ai/narrative", { method: "POST", body: JSON.stringify(payload) }),
+  aiRecommend: (payload) =>
+    request("/ai/recommend", { method: "POST", body: JSON.stringify(payload) }),
+
+  // Billing (PayPal subscriptions)
+  getBillingConfig: () => request("/billing/config"),
+  getBillingStatus: () => request("/billing/status"),
+  subscribeToPlan: (plan) =>
+    request("/billing/subscribe", { method: "POST", body: JSON.stringify({ plan }) }),
+  confirmSubscription: (subscriptionId) =>
+    request("/billing/confirm", { method: "POST", body: JSON.stringify({ subscriptionId }) }),
+  cancelSubscription: () => request("/billing/cancel", { method: "POST" }),
 };

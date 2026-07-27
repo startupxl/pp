@@ -85,6 +85,14 @@ export default function Layout({ children }) {
                   </p>
                   <p className="text-xs text-on-surface-variant truncate">{user?.email}</p>
                 </div>
+                <Link
+                  to="/billing"
+                  onClick={() => setMenuOpen(false)}
+                  className="w-full text-left px-4 py-2 text-sm text-on-surface hover:bg-surface-container flex items-center gap-2"
+                >
+                  <Icon name="workspace_premium" className="text-[18px]" />
+                  Plan & billing
+                </Link>
                 <button
                   onClick={handleLogout}
                   className="w-full text-left px-4 py-2 text-sm text-on-surface hover:bg-surface-container flex items-center gap-2"

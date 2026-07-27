@@ -287,3 +287,100 @@ export async function deleteDocument(id, userId) {
   );
   return result.affectedRows > 0;
 }
+
+// ---------- Subscriptions (one row per user; missing row = free plan) ----------
+function rowToSubscription(row) {
+  if (!row) return null;
+  return {
+    userId: row.user_id,
+    plan: row.plan,
+    status: row.status,
+    seats: row.seats,
+    paypalSubscriptionId: row.paypal_subscription_id,
+    paypalPlanId: row.paypal_plan_id,
+    currentPeriodEnd: toIso(row.current_period_end),
+    createdAt: toIso(row.created_at),
+    updatedAt: toIso(row.updated_at),
+  };
+}
+
+export async function getSubscription(userId) {
+  const [rows] = await pool.query("SELECT * FROM subscriptions WHERE user_id = ?", [userId]);
+  return rowToSubscription(rows[0]);
+}
+
+export async function getSubscriptionByPaypalId(paypalSubscriptionId) {
+  const [rows] = await pool.query(
+    "SELECT * FROM subscriptions WHERE paypal_subscription_id = ?",
+    [paypalSubscriptionId]
+  );
+  return rowToSubscription(rows[0]);
+}
+
+export async function upsertSubscription(userId, patch) {
+  const existing = await getSubscription(userId);
+  const merged = {
+    plan: patch.plan ?? existing?.plan ?? "free",
+    status: patch.status ?? existing?.status ?? "active",
+    seats: patch.seats ?? existing?.seats ?? 1,
+    paypalSubscriptionId: patch.paypalSubscriptionId ?? existing?.paypalSubscriptionId ?? null,
+    paypalPlanId: patch.paypalPlanId ?? existing?.paypalPlanId ?? null,
+    currentPeriodEnd: patch.currentPeriodEnd ?? existing?.currentPeriodEnd ?? null,
+  };
+  await pool.query(
+    `INSERT INTO subscriptions (user_id, plan, status, seats, paypal_subscription_id, paypal_plan_id, current_period_end)
+     VALUES (?, ?, ?, ?, ?, ?, ?)
+     ON DUPLICATE KEY UPDATE
+       plan = VALUES(plan), status = VALUES(status), seats = VALUES(seats),
+       paypal_subscription_id = VALUES(paypal_subscription_id),
+       paypal_plan_id = VALUES(paypal_plan_id),
+       current_period_end = VALUES(current_period_end)`,
+    [
+      userId,
+      merged.plan,
+      merged.status,
+      merged.seats,
+      merged.paypalSubscriptionId,
+      merged.paypalPlanId,
+      merged.currentPeriodEnd,
+    ]
+  );
+  return getSubscription(userId);
+}
+
+// ---------- AI usage (per user, per calendar-month period "YYYY-MM") ----------
+export async function getUsage(userId, period) {
+  const [rows] = await pool.query(
+    "SELECT * FROM ai_usage WHERE user_id = ? AND period = ?",
+    [userId, period]
+  );
+  if (!rows[0]) return { userId, period, used: 0, addonBalance: 0 };
+  return { userId, period, used: rows[0].used, addonBalance: rows[0].addon_balance };
+}
+
+export async function incrementUsage(userId, period, amount = 1) {
+  await pool.query(
+    `INSERT INTO ai_usage (user_id, period, used, addon_balance)
+     VALUES (?, ?, ?, 0)
+     ON DUPLICATE KEY UPDATE used = used + VALUES(used)`,
+    [userId, period, amount]
+  );
+  return getUsage(userId, period);
+}
+
+export async function addAddonActions(userId, period, amount) {
+  await pool.query(
+    `INSERT INTO ai_usage (user_id, period, used, addon_balance)
+     VALUES (?, ?, 0, ?)
+     ON DUPLICATE KEY UPDATE addon_balance = addon_balance + VALUES(addon_balance)`,
+    [userId, period, amount]
+  );
+  return getUsage(userId, period);
+}
+
+export async function logAIUsage({ userId, feature, tool, tokensIn, tokensOut }) {
+  await pool.query(
+    "INSERT INTO ai_usage_log (user_id, feature, tool, tokens_in, tokens_out) VALUES (?, ?, ?, ?, ?)",
+    [userId, feature, tool || null, tokensIn || null, tokensOut || null]
+  );
+}
