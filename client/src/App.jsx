@@ -69,6 +69,11 @@ import ComplianceHub from "./pages/ComplianceHub";
 import ProductAnalytics from "./pages/ProductAnalytics";
 import InnovationSandbox from "./pages/InnovationSandbox";
 import InvestorRelations from "./pages/InvestorRelations";
+import CynefinFramework from "./pages/CynefinFramework";
+import FiveWhys from "./pages/FiveWhys";
+import EisenhowerMatrix from "./pages/EisenhowerMatrix";
+import PorterFiveForces from "./pages/PorterFiveForces";
+import HeroJourney from "./pages/HeroJourney";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -644,6 +649,46 @@ function App() {
           element={
             <ProtectedRoute>
               <InvestorRelations />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/cynefin-framework/:id"
+          element={
+            <ProtectedRoute>
+              <CynefinFramework />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/five-whys/:id"
+          element={
+            <ProtectedRoute>
+              <FiveWhys />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/eisenhower-matrix/:id"
+          element={
+            <ProtectedRoute>
+              <EisenhowerMatrix />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/porter-five-forces/:id"
+          element={
+            <ProtectedRoute>
+              <PorterFiveForces />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/hero-journey/:id"
+          element={
+            <ProtectedRoute>
+              <HeroJourney />
             </ProtectedRoute>
           }
         />

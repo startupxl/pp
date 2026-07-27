@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import Layout from "../components/Layout";
 import Icon from "../components/Icon";
+import FrameworkGuide from "../components/FrameworkGuide";
 import { api } from "../api";
 
 function defaultData() {
@@ -126,6 +127,7 @@ export default function InvestorRelations() {
           </div>
           <span className="text-sm text-on-surface-variant">{saveState}</span>
         </div>
+        <FrameworkGuide toolKey="investor_relations" className="mb-6 max-w-2xl" />
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-white rounded-xl border border-outline-variant shadow-sm p-5">

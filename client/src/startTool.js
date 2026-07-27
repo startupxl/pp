@@ -547,6 +547,50 @@ const TOOL_CONFIG = {
       ],
     }),
   },
+  cynefin_framework: {
+    route: "cynefin-framework",
+    buildData: () => ({ situations: [] }),
+  },
+  five_whys: {
+    route: "five-whys",
+    buildData: () => ({
+      problem: "",
+      whys: [{ id: "w1", text: "" }, { id: "w2", text: "" }, { id: "w3", text: "" }, { id: "w4", text: "" }, { id: "w5", text: "" }],
+      rootCause: "",
+    }),
+  },
+  eisenhower_matrix: {
+    route: "eisenhower-matrix",
+    buildData: () => ({ tasks: [] }),
+  },
+  porter_five_forces: {
+    route: "porter-five-forces",
+    buildData: () => ({
+      forces: [
+        { id: "rivalry", label: "Competitive Rivalry", intensity: 50, note: "" },
+        { id: "suppliers", label: "Supplier Power", intensity: 50, note: "" },
+        { id: "buyers", label: "Buyer Power", intensity: 50, note: "" },
+        { id: "substitutes", label: "Threat of Substitution", intensity: 50, note: "" },
+        { id: "newEntrants", label: "Threat of New Entry", intensity: 50, note: "" },
+      ],
+    }),
+  },
+  hero_journey: {
+    route: "hero-journey",
+    buildData: () => ({
+      stages: [
+        { id: "ordinary_world", label: "Ordinary World", prompt: "What did life/the market look like before the problem?", text: "" },
+        { id: "call_to_adventure", label: "Call to Adventure", prompt: "What triggered the need for change?", text: "" },
+        { id: "refusal", label: "Refusal of the Call", prompt: "Why didn't an obvious solution already exist?", text: "" },
+        { id: "mentor", label: "Meeting the Mentor", prompt: "What insight, advisor, or data unlocked the path forward?", text: "" },
+        { id: "threshold", label: "Crossing the Threshold", prompt: "What was the first bold move / launch?", text: "" },
+        { id: "trials", label: "Tests, Allies, Enemies", prompt: "What obstacles and competitors did you face?", text: "" },
+        { id: "ordeal", label: "The Ordeal", prompt: "What was the make-or-break moment?", text: "" },
+        { id: "reward", label: "Reward", prompt: "What did you win or learn from the ordeal?", text: "" },
+        { id: "return", label: "The Return / New World", prompt: "What does the world look like now, and what's next?", text: "" },
+      ],
+    }),
+  },
 };
 
 /**

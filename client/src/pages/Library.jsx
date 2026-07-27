@@ -2,18 +2,33 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import Icon from "../components/Icon";
+import FrameworkGuide from "../components/FrameworkGuide";
 import { api } from "../api";
 import { startFrameworkSession } from "../startTool";
 
 const CATEGORIES = [
   { label: "All Frameworks", icon: "grid_view" },
-  { label: "Problem Solving", icon: "neurology" },
   { label: "Strategy", icon: "auto_awesome" },
+  { label: "Problem Solving", icon: "neurology" },
   { label: "Narrative", icon: "chat_bubble" },
+  { label: "Communication", icon: "forum" },
   { label: "Leadership", icon: "groups" },
+  { label: "Execution", icon: "checklist" },
+  { label: "People", icon: "diversity_3" },
+  { label: "Finance", icon: "payments" },
+  { label: "Product", icon: "widgets" },
+  { label: "Research", icon: "travel_explore" },
+  { label: "Sales", icon: "trending_up" },
+  { label: "Marketing", icon: "campaign" },
+  { label: "Operations", icon: "settings_suggest" },
 ];
 
 const COMPLEXITIES = ["Beginner", "Intermediate", "Advanced"];
+
+// A small, hand-picked set of broadly-useful frameworks for people who don't
+// know where to start out of 70+ options. Shown only on the unfiltered "All
+// Frameworks" view, above the full list.
+const STARTER_FRAMEWORK_IDS = [1, 11, 16, 24, 56, 13];
 
 const complexityColor = {
   Beginner: "bg-emerald-500",
@@ -24,11 +39,16 @@ const complexityColor = {
 export default function Library() {
   const navigate = useNavigate();
   const [frameworks, setFrameworks] = useState([]);
+  const [allFrameworks, setAllFrameworks] = useState([]);
   const [total, setTotal] = useState(0);
   const [category, setCategory] = useState("All Frameworks");
   const [complexity, setComplexity] = useState(null);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    api.getFrameworks({}).then((res) => setAllFrameworks(res.frameworks));
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -44,6 +64,9 @@ export default function Library() {
       })
       .finally(() => setLoading(false));
   }, [category, complexity, search]);
+
+  const showStarters = category === "All Frameworks" && !complexity && !search;
+  const starterFrameworks = STARTER_FRAMEWORK_IDS.map((id) => allFrameworks.find((f) => f.id === id)).filter(Boolean);
 
   async function openFramework(framework) {
     await startFrameworkSession(navigate, framework);
@@ -128,6 +151,42 @@ export default function Library() {
             />
           </div>
 
+          {showStarters && starterFrameworks.length > 0 && (
+            <div className="mb-8">
+              <div className="flex items-center gap-2 mb-1">
+                <Icon name="stars" className="text-secondary text-[20px]" />
+                <h2 className="font-bold text-lg">New here? Start with these six</h2>
+              </div>
+              <p className="text-sm text-on-surface-variant mb-4 max-w-2xl">
+                A broadly useful starting set covering the most common situations — analysis, breaking down a problem, testing an idea, setting goals, prioritizing, and telling a clear story.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                {starterFrameworks.map((f) => (
+                  <div key={f.id} className="bg-secondary-container/10 border border-secondary/30 rounded-xl p-5 flex flex-col">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="w-9 h-9 rounded-md bg-secondary-container flex items-center justify-center">
+                        <Icon name="psychology" className="text-secondary text-[18px]" />
+                      </div>
+                      <span className="text-[10px] font-semibold uppercase text-secondary bg-white px-2 py-1 rounded">{f.category}</span>
+                    </div>
+                    <div className="font-bold mb-1">{f.name}</div>
+                    <p className="text-sm text-on-surface-variant flex-1 mb-3 line-clamp-2">{f.description}</p>
+                    <FrameworkGuide toolKey={f.tool} className="mb-3" />
+                    <button
+                      onClick={() => openFramework(f)}
+                      className="self-start text-secondary text-sm font-semibold hover:underline"
+                    >
+                      Start Workshop →
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-8 mb-2 text-xs font-semibold tracking-wide text-on-surface-variant uppercase">
+                All {total} frameworks
+              </div>
+            </div>
+          )}
+
           {loading ? (
             <div className="text-on-surface-variant">Loading frameworks…</div>
           ) : (
@@ -183,6 +242,7 @@ export default function Library() {
                     <p className="text-sm text-on-surface-variant flex-1 mb-4">
                       {f.description}
                     </p>
+                    <FrameworkGuide toolKey={f.tool} className="mb-4" />
                     <div className="flex items-center justify-between">
                       <span className="flex items-center gap-1 text-xs text-on-surface-variant">
                         <span

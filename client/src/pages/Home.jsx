@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import Icon from "../components/Icon";
+import FrameworkGuide from "../components/FrameworkGuide";
 import { api } from "../api";
 import { startFrameworkSession } from "../startTool";
 
@@ -72,11 +73,69 @@ const DOCUMENT_TYPES = [
   { type: "product_analytics", route: "product-analytics", label: "Product Analytics Dashboard" },
   { type: "innovation_sandbox", route: "innovation-sandbox", label: "Innovation Sandbox" },
   { type: "investor_relations", route: "investor-relations", label: "Investor Relations Hub" },
+  { type: "cynefin_framework", route: "cynefin-framework", label: "Cynefin Framework" },
+  { type: "five_whys", route: "five-whys", label: "5 Whys" },
+  { type: "eisenhower_matrix", route: "eisenhower-matrix", label: "Eisenhower Matrix" },
+  { type: "porter_five_forces", route: "porter-five-forces", label: "Porter's Five Forces" },
+  { type: "hero_journey", route: "hero-journey", label: "The Hero's Journey" },
+];
+
+const CHALLENGES = [
+  {
+    key: "competitive_threat",
+    label: "Competitive Threat",
+    icon: "security",
+    description: "Defend your market position and counter rivals.",
+    frameworkIds: [9, 55, 37],
+  },
+  {
+    key: "new_market",
+    label: "New Market Entry",
+    icon: "explore",
+    description: "Validate demand and plan expansion.",
+    frameworkIds: [38, 22, 54],
+  },
+  {
+    key: "internal_efficiency",
+    label: "Internal Efficiency",
+    icon: "bolt",
+    description: "Find root causes and reclaim focus time.",
+    frameworkIds: [5, 8, 70],
+  },
+  {
+    key: "prioritization",
+    label: "Product Prioritization",
+    icon: "priority_high",
+    description: "Decide what to build next with data.",
+    frameworkIds: [56, 57, 25],
+  },
+  {
+    key: "fundraising",
+    label: "Fundraising & Investors",
+    icon: "account_balance",
+    description: "Model dilution, manage updates, and track runway.",
+    frameworkIds: [53, 74, 35],
+  },
+  {
+    key: "team_leadership",
+    label: "Team & Leadership",
+    icon: "groups",
+    description: "Clarify ownership and align on goals.",
+    frameworkIds: [27, 36, 24],
+  },
+  {
+    key: "communication",
+    label: "Communication & Pitching",
+    icon: "campaign",
+    description: "Land the message fast and credibly.",
+    frameworkIds: [13, 43, 7],
+  },
 ];
 
 export default function Home() {
   const navigate = useNavigate();
   const [goals, setGoals] = useState([]);
+  const [selectedChallenge, setSelectedChallenge] = useState(null);
   const [frameworks, setFrameworks] = useState([]);
   const [sessions, setSessions] = useState([]);
   const [documents, setDocuments] = useState([]);
@@ -165,21 +224,65 @@ export default function Home() {
           </div>
         </div>
 
-        <h2 className="text-xl font-bold mb-4">What is your goal?</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-          {goals.map((goal) => (
-            <button
-              key={goal.id}
-              onClick={() => startNewSession(goal.frameworkId)}
-              className="text-left bg-white border border-outline-variant rounded-lg p-5 hover:shadow-md hover:-translate-y-0.5 transition-all"
-            >
-              <div className="w-10 h-10 rounded-md bg-secondary-container flex items-center justify-center mb-4">
-                <Icon name={goal.icon} className="text-secondary text-[20px]" />
+        <div className="bg-white border border-outline-variant rounded-xl p-6 mb-10">
+          <h2 className="text-xl font-bold mb-1">What business challenge are you solving?</h2>
+          <p className="text-sm text-on-surface-variant mb-5">
+            Pick the situation closest to what you're facing — we'll recommend the frameworks best suited to it, out of {frameworks.length || 74}+ available.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-2">
+            {CHALLENGES.map((c) => (
+              <button
+                key={c.key}
+                onClick={() => setSelectedChallenge(c.key === selectedChallenge?.key ? null : c)}
+                className={`text-left border rounded-lg p-4 transition-all ${
+                  selectedChallenge?.key === c.key
+                    ? "border-secondary bg-secondary-container/20 shadow-sm"
+                    : "border-outline-variant hover:border-secondary/50"
+                }`}
+              >
+                <div className="w-9 h-9 rounded-md bg-secondary-container flex items-center justify-center mb-3">
+                  <Icon name={c.icon} className="text-secondary text-[18px]" />
+                </div>
+                <div className="font-semibold text-sm mb-1">{c.label}</div>
+                <div className="text-xs text-on-surface-variant">{c.description}</div>
+              </button>
+            ))}
+          </div>
+
+          {selectedChallenge && !loading && (
+            <div className="mt-6 pt-6 border-t border-outline-variant">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-bold text-primary">Recommended for "{selectedChallenge.label}"</h3>
+                <span className="text-xs px-3 py-1 rounded-full bg-secondary/10 text-secondary font-semibold">
+                  {selectedChallenge.frameworkIds.length} frameworks found
+                </span>
               </div>
-              <div className="font-semibold mb-1">{goal.title}</div>
-              <div className="text-sm text-on-surface-variant">{goal.description}</div>
-            </button>
-          ))}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {selectedChallenge.frameworkIds
+                  .map((fid) => frameworks.find((f) => f.id === fid))
+                  .filter(Boolean)
+                  .map((f) => (
+                    <div key={f.id} className="border border-outline-variant rounded-xl p-5 flex flex-col bg-surface-container-low/30">
+                      <span className="text-xs font-semibold uppercase text-secondary mb-2">{f.category}</span>
+                      <div className="font-bold mb-2">{f.name}</div>
+                      <p className="text-sm text-on-surface-variant flex-1 mb-3 line-clamp-3">{f.description}</p>
+                      <FrameworkGuide toolKey={f.tool} className="mb-4" />
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-on-surface-variant flex items-center gap-1">
+                          <Icon name="schedule" className="text-[14px]" /> {f.readTime}
+                        </span>
+                        <button
+                          onClick={() => startNewSession(f.id)}
+                          className="bg-primary text-white text-xs font-semibold px-3 py-1.5 rounded-md hover:opacity-90"
+                        >
+                          Start Workshop
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="flex items-center justify-between mb-4">

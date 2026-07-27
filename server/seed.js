@@ -33,6 +33,8 @@ export const frameworks = [
     tag: "Narrative",
     description:
       "A structural framework for storytelling used to create compelling brand narratives and product visions.",
+    workshop: true,
+    tool: "hero_journey",
   },
   {
     id: 4,
@@ -40,10 +42,11 @@ export const frameworks = [
     category: "Problem Solving",
     complexity: "Advanced",
     readTime: "15 min read",
-    tag: "New Framework",
+    tag: "Decision-Making",
     description:
       "A decision-making tool used to help managers, policy-makers and others identify how they perceive situations and make sense of their own and other people's behavior.",
-    isNew: true,
+    workshop: true,
+    tool: "cynefin_framework",
   },
   {
     id: 5,
@@ -54,6 +57,8 @@ export const frameworks = [
     tag: "Problem Solving",
     description:
       "An iterative interrogative technique used to explore the cause-and-effect relationships underlying a problem.",
+    workshop: true,
+    tool: "five_whys",
   },
   {
     id: 6,
@@ -62,7 +67,9 @@ export const frameworks = [
     complexity: "Beginner",
     readTime: "6 min read",
     tag: "Communication",
-    description: "Structure your responses to showcase leadership and impact under pressure.",
+    description: "Structure your responses to showcase leadership and impact under pressure. Same workshop as STAR Framework Workspace below.",
+    workshop: true,
+    tool: "star_framework",
   },
   {
     id: 7,
@@ -83,6 +90,8 @@ export const frameworks = [
     readTime: "5 min read",
     tag: "Leadership",
     description: "Prioritize what matters by sorting tasks along urgency and importance.",
+    workshop: true,
+    tool: "eisenhower_matrix",
   },
   {
     id: 9,
@@ -92,6 +101,8 @@ export const frameworks = [
     readTime: "14 min read",
     tag: "Strategy",
     description: "Analyze the competitive intensity and attractiveness of an industry.",
+    workshop: true,
+    tool: "porter_five_forces",
   },
   {
     id: 10,
@@ -100,7 +111,9 @@ export const frameworks = [
     complexity: "Intermediate",
     readTime: "9 min read",
     tag: "Leadership",
-    description: "Set ambitious objectives with measurable key results to align teams.",
+    description: "Set ambitious objectives with measurable key results to align teams. Same workshop as OKR Workshop below.",
+    workshop: true,
+    tool: "okr",
   },
   {
     id: 11,
