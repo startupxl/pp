@@ -94,7 +94,7 @@ Full field-by-field data shapes for each tool are in the corresponding page file
 ## Git / deploy state
 
 - Live repo: `/Users/edy/Desktop/My Projects/PP`, remotes `origin` → `https://github.com/startupxl/pp.git` and `principlepitch` → `https://github.com/startupxl/principlepitch.git`.
-- Latest commit on `main`: `f028b7d` ("Product UX overhaul: manual-entry tools, recommendation flow, guidance content").
+- Latest commit on `main`: `eed8671` ("Wire AI-assist (OpenAI) and PayPal subscription billing into the app").
 - **No GitHub push credentials exist in this sandbox.** `git push` will always fail with `fatal: could not read Username for 'https://github.com'`. Never attempt workarounds — always tell the user to run `git push origin main` themselves (with a personal access token, since GitHub no longer accepts password auth).
 - Deploy target is Hostinger via a single-app Node setup; see `DEPLOY.md` in the repo root for exact steps if that ever needs revisiting.
 - There is a stray, untracked `continuity.md` at the PP repo root (this file) — it's the working copy of these notes, kept in sync manually with the "PP V2" Claude.ai project's `docs/continuity.md`, which is read-only from inside a session. Update this repo-root copy at the end of a build session; the user re-syncs it into the project knowledge separately.
